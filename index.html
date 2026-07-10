@@ -9,179 +9,87 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <title>BeeNote</title>
 <link rel="manifest" href="./manifest.json">
-<link rel="apple-touch-icon" sizes="180x180" href="./beenote-icon-180.png?v=10">
-<link rel="icon" type="image/png" href="./beenote-icon-512.png?v=10">
+<link rel="apple-touch-icon" sizes="180x180" href="./beenote-icon-180.png?v=61">
+<link rel="icon" type="image/png" href="./beenote-icon-512.png?v=61">
 <style>
-*{box-sizing:border-box}
-:root{--g:#315d38;--gs:#e7ebe5;--y:#f1c84a;--bg:#f3f5f1;--muted:#707770}
+*{box-sizing:border-box}:root{--g:#315d38;--gs:#e7ebe5;--y:#f1c84a;--bg:#f3f5f1;--muted:#707770}
 html,body{margin:0;min-height:100%;background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Sans","Yu Gothic",sans-serif;color:#222}
-button,input,select,textarea{font:inherit}
-.hidden{display:none!important}
-#login{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+button,input,select,textarea{font:inherit}.hidden{display:none!important}
+#loginView{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
 .login-box{width:min(100%,420px);background:#fff;border-radius:18px;padding:24px;box-shadow:0 8px 28px rgba(0,0,0,.09);text-align:center}
 .login-box img{width:96px;height:96px;border-radius:22px}.login-box h1{margin:14px 0 4px}.login-box p{color:var(--muted);margin:0 0 18px}
 .login-box input{letter-spacing:.25em;text-align:center;font-size:22px}
 header{background:#fff;padding:calc(14px + env(safe-area-inset-top)) 14px 13px;border-bottom:1px solid #ddd;position:sticky;top:0;z-index:20}
 .brand{display:flex;align-items:center;gap:10px;margin-bottom:12px}.brand img{width:44px;height:44px;border-radius:10px}.brand h1{margin:0;font-size:25px}.sub{color:var(--muted);font-size:12px}
 .icon-btn{margin-left:auto;width:40px;height:40px;border:0;border-radius:50%;background:var(--gs);color:var(--g);font-size:20px;font-weight:700}
-.actions{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:11px}.action{border:0;border-radius:12px;padding:12px 5px;font-size:14px;font-weight:700}.diary{background:var(--g);color:#fff}.nectar{background:var(--y)}.harvest{background:#dca93b}
+.actions{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:11px}.action{border:0;border-radius:12px;padding:12px 5px;font-size:14px;font-weight:700}
+.diary{background:var(--g);color:#fff}.nectar{background:var(--y)}.harvest{background:#dca93b}
 .tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}.tab{border:0;border-radius:10px;padding:10px 3px;font-size:12px;background:var(--gs)}.tab.active{background:var(--g);color:#fff;font-weight:700}
 main{padding:13px 13px calc(24px + env(safe-area-inset-bottom));max-width:900px;margin:auto}
 .selector{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:13px}.selector button{border:1px solid #b9c1b7;background:#fff;border-radius:20px;padding:8px 14px}.selector button.selected{background:var(--g);color:#fff;border-color:var(--g)}
-.summary{background:#fff7d8;border-radius:14px;padding:14px;margin-bottom:11px;font-weight:700}
-.card{background:#fff;border-radius:14px;padding:14px;margin-bottom:11px;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.summary{background:#fff7d8;border-radius:14px;padding:14px;margin-bottom:11px;font-weight:700}.card{background:#fff;border-radius:14px;padding:14px;margin-bottom:11px;box-shadow:0 2px 8px rgba(0,0,0,.06)}
 .card-head{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px}.date,.name{font-weight:700;font-size:17px}.edit{border:0;border-radius:9px;padding:7px 11px;background:var(--gs);color:var(--g);font-weight:700}
 .item{display:grid;grid-template-columns:92px 1fr;gap:8px;margin:5px 0}.label{color:var(--muted);font-size:13px}.memo{margin-top:9px;padding-top:9px;border-top:1px solid #edf0eb;white-space:pre-line}.photo-link{display:inline-block;margin-top:10px;padding:10px 14px;background:var(--g);color:#fff;text-decoration:none;border-radius:9px;font-weight:700}
-.loading,.empty{background:#fff;border-radius:14px;padding:25px;text-align:center;color:#777}
-.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.48);z-index:100;padding:calc(18px + env(safe-area-inset-top)) 18px calc(18px + env(safe-area-inset-bottom));overflow:auto}.modal.show{display:block}
+.loading,.empty{background:#fff;border-radius:14px;padding:25px;text-align:center;color:#777}.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.48);z-index:100;padding:calc(18px + env(safe-area-inset-top)) 18px calc(18px + env(safe-area-inset-bottom));overflow:auto}.modal.show{display:block}
 .box{background:#fff;border-radius:16px;max-width:520px;margin:20px auto;padding:19px}.box h2{margin:0 0 15px}.fg{margin-bottom:13px}.fg label{display:block;font-size:14px;font-weight:700;margin-bottom:5px}
-input,select,textarea{width:100%;border:1px solid #c8cec6;border-radius:9px;padding:11px;font-size:16px;background:#fff}textarea{min-height:82px}
-.buttons{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:17px}.btn{border:0;border-radius:10px;padding:12px;font-weight:700}.cancel{background:#e7e9e6}.save{background:var(--g);color:#fff}.danger{width:100%;margin-top:14px;border:1px solid #d9a4a4;background:#fff;color:#9a2626}
-.status{display:none;margin-top:12px;padding:10px;border-radius:8px}.status.show{display:block}.ok{background:#e4f3e6;color:#24532b}.ng{background:#fce5e5;color:#8a2222}
+input,select,textarea{width:100%;border:1px solid #c8cec6;border-radius:9px;padding:11px;font-size:16px;background:#fff}textarea{min-height:82px}.buttons{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:17px}.btn{border:0;border-radius:10px;padding:12px;font-weight:700}.cancel{background:#e7e9e6}.save{background:var(--g);color:#fff}.danger{width:100%;margin-top:14px;border:1px solid #d9a4a4;background:#fff;color:#9a2626}
+.status{display:none;margin-top:12px;padding:10px;border-radius:8px;white-space:pre-line}.status.show{display:block}.ok{background:#e4f3e6;color:#24532b}.ng{background:#fce5e5;color:#8a2222}
 .toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom));transform:translate(-50%,20px);background:#243728;color:#fff;padding:10px 16px;border-radius:999px;opacity:0;transition:.2s;z-index:300}.toast.show{opacity:1;transform:translate(-50%,0)}
 </style>
 </head>
 <body>
-<section id="login">
-  <div class="login-box">
-    <img src="./beenote-icon-180.png?v=10" alt="BeeNote">
-    <h1>BeeNote</h1>
-    <p>8桁のPINを入力してください</p>
-    <input id="pinInput" type="password" inputmode="numeric" maxlength="8" placeholder="••••••••">
-    <button class="btn save" style="width:100%;margin-top:12px" onclick="performLogin()">ログイン</button>
-    <div id="loginStatus" class="status"></div>
-  </div>
+<section id="loginView">
+<div class="login-box"><img src="./beenote-icon-180.png?v=61" alt="BeeNote"><h1>BeeNote</h1><p>8桁のPINを入力してください</p>
+<input id="pinInput" type="password" inputmode="numeric" maxlength="8" placeholder="••••••••">
+<button class="btn save" style="width:100%;margin-top:12px" onclick="performLogin()">ログイン</button>
+<div id="loginStatus" class="status"></div></div>
 </section>
 
-<section id="app" class="hidden">
-<header>
-  <div class="brand">
-    <img src="./beenote-icon-180.png?v=10" alt="BeeNote">
-    <div><h1>BeeNote</h1><div class="sub">Takeda Beekeeping Manager</div></div>
-    <button class="icon-btn" onclick="reloadData()" title="更新">↻</button>
-    <button class="icon-btn" onclick="logout()" title="ログアウト">⇥</button>
-  </div>
-  <div class="actions">
-    <button class="action diary" onclick="openDiary()">🐝 日誌</button>
-    <button class="action nectar" onclick="openNectar()">🌼 蜜源</button>
-    <button class="action harvest" onclick="openHarvest()">🍯 採蜜</button>
-  </div>
-  <div class="tabs">
-    <button id="groupTab" class="tab active" onclick="changeMode('group')">群ごと</button>
-    <button id="dateTab" class="tab" onclick="changeMode('date')">日付ごと</button>
-    <button id="nectarTab" class="tab" onclick="changeMode('nectar')">蜜源</button>
-    <button id="harvestTab" class="tab" onclick="changeMode('harvest')">採蜜</button>
-  </div>
-</header>
-<main>
-  <div id="loading" class="loading">読み込み中...</div>
-  <div id="content" class="hidden"><div id="selector" class="selector"></div><div id="records"></div></div>
-</main>
+<section id="appView" class="hidden">
+<header><div class="brand"><img src="./beenote-icon-180.png?v=61" alt="BeeNote"><div><h1>BeeNote</h1><div class="sub">Takeda Beekeeping Manager</div></div>
+<button class="icon-btn" onclick="reloadData()" title="更新">↻</button><button class="icon-btn" onclick="logout()" title="ログアウト">⇥</button></div>
+<div class="actions"><button class="action diary" onclick="openDiary()">🐝 日誌</button><button class="action nectar" onclick="openNectar()">🌼 蜜源</button><button class="action harvest" onclick="openHarvest()">🍯 採蜜</button></div>
+<div class="tabs"><button id="groupTab" class="tab active" onclick="changeMode('group')">群ごと</button><button id="dateTab" class="tab" onclick="changeMode('date')">日付ごと</button><button id="nectarTab" class="tab" onclick="changeMode('nectar')">蜜源</button><button id="harvestTab" class="tab" onclick="changeMode('harvest')">採蜜</button></div></header>
+<main><div id="loading" class="loading">読み込み中...</div><div id="content" class="hidden"><div id="selector" class="selector"></div><div id="records"></div></div></main>
 </section>
 
-<div id="diaryModal" class="modal"><div class="box">
-<h2 id="diaryTitle">🐝 日誌を登録</h2><input type="hidden" id="diaryId">
-<div class="fg"><label>日付</label><input type="date" id="diaryDate"></div>
-<div class="fg"><label>群</label><select id="diaryGroup"><option>A群</option><option>B群</option><option>C群</option><option>D群</option></select></div>
-<div class="fg"><label>点検枚数</label><input type="number" min="0" id="diaryFramesChecked"></div>
-<div class="fg"><label>産卵</label><select id="diaryEggs"><option value="">未入力</option><option>あり</option><option>なし</option><option>未確認</option></select></div>
-<div class="fg"><label>女王蜂</label><select id="diaryQueen"><option value="">未入力</option><option>確認</option><option>未確認</option><option>なし</option></select></div>
-<div class="fg"><label>給餌</label><select id="diaryFeeding"><option value="">未入力</option><option>なし</option><option>糖液</option><option>花粉</option><option>糖液・花粉</option></select></div>
-<div class="fg"><label>巣枠追加</label><input type="number" min="0" id="diaryFramesAdded"></div>
-<div class="fg"><label>群勢</label><select id="diaryStrength"><option value="">未入力</option><option>弱</option><option>普通</option><option>強</option></select></div>
-<div class="fg"><label>メモ</label><textarea id="diaryMemo"></textarea></div>
-<div class="fg"><label><input type="checkbox" id="diaryPhotoAfter" style="width:auto"> 登録後に写真を追加</label></div>
-<div id="diaryStatus" class="status"></div>
-<div class="buttons"><button class="btn cancel" onclick="closeModal('diaryModal')">キャンセル</button><button id="diarySave" class="btn save" onclick="saveDiary()">登録する</button></div>
-<button id="diaryDelete" class="btn danger hidden" onclick="deleteRecord('diary')">この日誌を削除</button>
-</div></div>
+<div id="diaryModal" class="modal"><div class="box"><h2 id="diaryTitle">🐝 日誌を登録</h2><input type="hidden" id="diaryId">
+<div class="fg"><label>日付</label><input type="date" id="diaryDate"></div><div class="fg"><label>群</label><select id="diaryGroup"><option>A群</option><option>B群</option><option>C群</option><option>D群</option></select></div>
+<div class="fg"><label>点検枚数</label><input type="number" min="0" id="diaryFramesChecked"></div><div class="fg"><label>産卵</label><select id="diaryEggs"><option value="">未入力</option><option>あり</option><option>なし</option><option>未確認</option></select></div>
+<div class="fg"><label>女王蜂</label><select id="diaryQueen"><option value="">未入力</option><option>確認</option><option>未確認</option><option>なし</option></select></div><div class="fg"><label>給餌</label><select id="diaryFeeding"><option value="">未入力</option><option>なし</option><option>糖液</option><option>花粉</option><option>糖液・花粉</option></select></div>
+<div class="fg"><label>巣枠追加</label><input type="number" min="0" id="diaryFramesAdded"></div><div class="fg"><label>群勢</label><select id="diaryStrength"><option value="">未入力</option><option>弱</option><option>普通</option><option>強</option></select></div><div class="fg"><label>メモ</label><textarea id="diaryMemo"></textarea></div>
+<div class="fg"><label><input type="checkbox" id="diaryPhotoAfter" style="width:auto"> 登録後に写真を追加</label></div><div id="diaryStatus" class="status"></div>
+<div class="buttons"><button class="btn cancel" onclick="closeModal('diaryModal')">キャンセル</button><button class="btn save" onclick="saveDiary()">保存</button></div><button id="diaryDelete" class="btn danger hidden" onclick="deleteRecord('diary')">削除</button></div></div>
 
-<div id="nectarModal" class="modal"><div class="box">
-<h2 id="nectarTitle">🌼 蜜源を登録</h2><input type="hidden" id="nectarId">
-<div class="fg"><label>日付</label><input type="date" id="nectarDate"></div>
-<div class="fg"><label>蜜源名</label><input id="nectarPlant"></div>
-<div class="fg"><label>開花状況</label><select id="nectarBloom"><option value="">未入力</option><option>つぼみ</option><option>咲き始め</option><option>開花</option><option>かなり開花</option><option>満開</option><option>終盤</option><option>終了</option></select></div>
-<div class="fg"><label>訪花状況</label><select id="nectarVisit"><option value="">未入力</option><option>未確認</option><option>なし</option><option>少ない</option><option>あり</option><option>多い</option></select></div>
-<div class="fg"><label>メモ</label><textarea id="nectarMemo"></textarea></div>
-<div class="fg"><label><input type="checkbox" id="nectarPhotoAfter" style="width:auto"> 登録後に写真を追加</label></div>
-<div id="nectarStatus" class="status"></div>
-<div class="buttons"><button class="btn cancel" onclick="closeModal('nectarModal')">キャンセル</button><button id="nectarSave" class="btn save" onclick="saveNectar()">登録する</button></div>
-<button id="nectarDelete" class="btn danger hidden" onclick="deleteRecord('nectar')">この蜜源を削除</button>
-</div></div>
+<div id="nectarModal" class="modal"><div class="box"><h2 id="nectarTitle">🌼 蜜源を登録</h2><input type="hidden" id="nectarId">
+<div class="fg"><label>日付</label><input type="date" id="nectarDate"></div><div class="fg"><label>蜜源名</label><input id="nectarPlant"></div><div class="fg"><label>開花状況</label><select id="nectarBloom"><option value="">未入力</option><option>つぼみ</option><option>咲き始め</option><option>開花</option><option>かなり開花</option><option>満開</option><option>終盤</option><option>終了</option></select></div>
+<div class="fg"><label>訪花状況</label><select id="nectarVisit"><option value="">未入力</option><option>未確認</option><option>なし</option><option>少ない</option><option>あり</option><option>多い</option></select></div><div class="fg"><label>メモ</label><textarea id="nectarMemo"></textarea></div>
+<div class="fg"><label><input type="checkbox" id="nectarPhotoAfter" style="width:auto"> 登録後に写真を追加</label></div><div id="nectarStatus" class="status"></div>
+<div class="buttons"><button class="btn cancel" onclick="closeModal('nectarModal')">キャンセル</button><button class="btn save" onclick="saveNectar()">保存</button></div><button id="nectarDelete" class="btn danger hidden" onclick="deleteRecord('nectar')">削除</button></div></div>
 
-<div id="harvestModal" class="modal"><div class="box">
-<h2 id="harvestTitle">🍯 採蜜を登録</h2><input type="hidden" id="harvestId">
-<div class="fg"><label>日付</label><input type="date" id="harvestDate"></div>
-<div class="fg"><label>巣枠数</label><input type="number" min="0" id="harvestFrames"></div>
-<div class="fg"><label>採蜜量（kg）</label><input type="number" min="0" step="0.01" id="harvestAmount"></div>
-<div class="fg"><label>糖度</label><input type="number" min="0" step="0.1" id="harvestSugar"></div>
-<div class="fg"><label>メモ</label><textarea id="harvestMemo"></textarea></div>
-<div class="fg"><label><input type="checkbox" id="harvestPhotoAfter" style="width:auto"> 登録後に写真を追加</label></div>
-<div id="harvestStatus" class="status"></div>
-<div class="buttons"><button class="btn cancel" onclick="closeModal('harvestModal')">キャンセル</button><button id="harvestSave" class="btn save" onclick="saveHarvest()">登録する</button></div>
-<button id="harvestDelete" class="btn danger hidden" onclick="deleteRecord('harvest')">この採蜜記録を削除</button>
-</div></div>
-
+<div id="harvestModal" class="modal"><div class="box"><h2 id="harvestTitle">🍯 採蜜を登録</h2><input type="hidden" id="harvestId">
+<div class="fg"><label>日付</label><input type="date" id="harvestDate"></div><div class="fg"><label>巣枠数</label><input type="number" min="0" id="harvestFrames"></div><div class="fg"><label>採蜜量（kg）</label><input type="number" min="0" step="0.01" id="harvestAmount"></div><div class="fg"><label>糖度</label><input type="number" min="0" step="0.1" id="harvestSugar"></div><div class="fg"><label>メモ</label><textarea id="harvestMemo"></textarea></div>
+<div class="fg"><label><input type="checkbox" id="harvestPhotoAfter" style="width:auto"> 登録後に写真を追加</label></div><div id="harvestStatus" class="status"></div>
+<div class="buttons"><button class="btn cancel" onclick="closeModal('harvestModal')">キャンセル</button><button class="btn save" onclick="saveHarvest()">保存</button></div><button id="harvestDelete" class="btn danger hidden" onclick="deleteRecord('harvest')">削除</button></div></div>
 <div id="toast" class="toast"></div>
 
 <script>
 'use strict';
-const API='https://script.google.com/macros/s/AKfycbwPjOX_wfVDndUDqkl-TPhkwOi99gwRZp3OrohrP5E-4VXqAeACfdMK2CajCImnJF_4WQ/exec';
-const TOKEN_KEY='beenote_v5_token';
+const API='https://script.google.com/macros/s/AKfycbyi25P-kIgspb7TehdhpqMmDCRte45xlaJ_-Nrco-JbfJ2zA8Y6jPyxGFLSwfBuVsi11A/exec';
+const TOKEN_KEY='beenote_v6_token';
 let token=localStorage.getItem(TOKEN_KEY)||'';
 let diaryData=null,nectarData=null,harvestData=null,currentMode='group',selectedKey='';
 
 document.addEventListener('DOMContentLoaded',async()=>{setDates();if(token&&await checkAuth()){showApp();loadAll()}else showLogin();if('serviceWorker'in navigator)navigator.serviceWorker.register('./service-worker.js').catch(()=>{})});
 
-function apiCall(api,p={}){
-  return new Promise((resolve,reject)=>{
-    const nonce='bn_'+Date.now()+'_'+Math.random().toString(36).slice(2);
-    const q=new URLSearchParams({...p,api,token,transport:'iframe',nonce,_:Date.now()});
-    const frame=document.createElement('iframe');
-    frame.style.display='none';
-    frame.setAttribute('aria-hidden','true');
-
-    const timer=setTimeout(()=>{
-      cleanup();
-      reject(new Error('BeeNoteサーバーへの接続がタイムアウトしました。'));
-    },25000);
-
-    function cleanup(){
-      clearTimeout(timer);
-      window.removeEventListener('message',onMessage);
-      frame.remove();
-    }
-
-    function onMessage(event){
-      const data=event.data;
-      if(!data||data.source!=='BeeNoteGAS'||data.nonce!==nonce)return;
-      cleanup();
-      const r=data.response;
-      if(r&&r.authRequired){
-        logout();
-        reject(new Error(r.error||'ログインの有効期限が切れています'));
-      }else{
-        resolve(r);
-      }
-    }
-
-    window.addEventListener('message',onMessage);
-    frame.onerror=()=>{
-      cleanup();
-      reject(new Error('BeeNoteサーバーへ接続できませんでした。'));
-    };
-    frame.src=API+'?'+q.toString();
-    document.body.appendChild(frame);
-  });
-}
-const jsonp=apiCall;
-async function checkAuth(){try{const r=await jsonp('health');return !!r?.authenticated}catch(e){return false}}
-function showLogin(){document.getElementById('login').classList.remove('hidden');document.getElementById('app').classList.add('hidden')}
-function showApp(){document.getElementById('login').classList.add('hidden');document.getElementById('app').classList.remove('hidden')}
-async function performLogin(){const pin=pinInput.value.trim();if(!/^\d{8}$/.test(pin))return status('loginStatus','8桁の数字を入力してください。',false);status('loginStatus','確認中...',true);try{const r=await jsonp('login',{pin});if(!r?.ok)throw new Error(r?.error||'ログインできませんでした。');token=r.token;localStorage.setItem(TOKEN_KEY,token);pinInput.value='';showApp();loadAll()}catch(e){status('loginStatus',(e.message||String(e))+'\n通信環境を確認して、もう一度お試しください。',false)}}
+function api(api,p={}){return new Promise((resolve,reject)=>{const cb='__bn'+Date.now()+Math.random().toString(36).slice(2),q=new URLSearchParams({...p,api,token,callback:cb,_:Date.now()}),s=document.createElement('script');const timer=setTimeout(()=>{cleanup();reject(new Error('BeeNoteサーバーへの接続がタイムアウトしました。'))},20000);function cleanup(){clearTimeout(timer);delete window[cb];s.remove()}window[cb]=r=>{cleanup();if(r&&r.authRequired){logout();reject(new Error(r.error))}else resolve(r)};s.onerror=()=>{cleanup();reject(new Error('BeeNoteサーバーへ接続できませんでした。'))};s.src=API+'?'+q.toString();document.head.appendChild(s)})}
+async function checkAuth(){try{const r=await api('health');return !!r?.authenticated}catch(e){return false}}
+function showLogin(){document.getElementById('loginView').classList.remove('hidden');document.getElementById('appView').classList.add('hidden')}
+function showApp(){document.getElementById('loginView').classList.add('hidden');document.getElementById('appView').classList.remove('hidden')}
+async function performLogin(){const pin=pinInput.value.trim();if(!/^\d{8}$/.test(pin))return status('loginStatus','8桁の数字を入力してください。',false);status('loginStatus','確認中...',true);try{const r=await api('login',{pin});if(!r?.ok)throw new Error(r?.error||'ログインできませんでした。');token=r.token;localStorage.setItem(TOKEN_KEY,token);pinInput.value='';showApp();loadAll()}catch(e){status('loginStatus',e.message||String(e),false)}}
 function logout(){localStorage.removeItem(TOKEN_KEY);token='';showLogin()}
 function setDates(){const n=new Date(),d=new Date(n.getTime()-n.getTimezoneOffset()*60000).toISOString().slice(0,10);diaryDate.value=d;nectarDate.value=d;harvestDate.value=d}
-async function loadAll(){loading.textContent='読み込み中...';loading.classList.remove('hidden');content.classList.add('hidden');try{const [d,n,h]=await Promise.all([jsonp('diary'),jsonp('nectar'),jsonp('harvest')]);if(!d?.ok)throw new Error(d?.error);if(!n?.ok)throw new Error(n?.error);if(!h?.ok)throw new Error(h?.error);diaryData=d.data;nectarData=n.data;harvestData=h.data;selectedKey=diaryData.groupNames[0]||'';loading.classList.add('hidden');content.classList.remove('hidden');render()}catch(e){loading.innerHTML='エラーが発生しました。<br>'+esc(e.message||String(e))}}
+async function loadAll(){loading.textContent='読み込み中...';loading.classList.remove('hidden');content.classList.add('hidden');try{const [d,n,h]=await Promise.all([api('diary'),api('nectar'),api('harvest')]);if(!d?.ok)throw new Error(d?.error);if(!n?.ok)throw new Error(n?.error);if(!h?.ok)throw new Error(h?.error);diaryData=d.data;nectarData=n.data;harvestData=h.data;selectedKey=diaryData.groupNames[0]||'';loading.classList.add('hidden');content.classList.remove('hidden');render()}catch(e){loading.innerHTML='エラーが発生しました。<br>'+esc(e.message||String(e))}}
 async function reloadData(){await loadAll();toast('更新しました')}
 function changeMode(m){currentMode=m;['group','date','nectar','harvest'].forEach(x=>document.getElementById(x+'Tab').classList.toggle('active',x===m));selectedKey=m==='group'?(diaryData.groupNames[0]||''):m==='date'?(diaryData.dateList[0]||''):m==='nectar'?'すべて':'';render()}
 function render(){renderSelector();renderRecords()}
@@ -196,17 +104,17 @@ function memo(c,v){if(!v)return;const d=document.createElement('div');d.classNam
 function photo(c,u){if(!u||!/^https?:/.test(u))return;const a=document.createElement('a');a.className='photo-link';a.href=u;a.target='_blank';a.rel='noopener';a.textContent='📷 写真を見る';c.appendChild(a)}
 function plantName(r){return first(r,['蜜源名','植物名','植物','蜜源'])||'名称未登録'}function first(r,ks){for(const k of ks)if(r[k])return r[k];return''}
 
-function openDiary(r=null){diaryId.value=r?.['ID']||'';diaryTitle.textContent=r?'🐝 日誌を修正':'🐝 日誌を登録';diarySave.textContent=r?'更新する':'登録する';diaryDelete.classList.toggle('hidden',!r);diaryDate.value=toInput(r?.['日付']);diaryGroup.value=r?.['群']||'A群';diaryFramesChecked.value=r?.['点検枚数']||'';diaryEggs.value=r?.['産卵']||'';diaryQueen.value=r?.['女王蜂']||'';diaryFeeding.value=r?.['給餌']||'';diaryFramesAdded.value=r?.['巣枠追加']||'';diaryStrength.value=r?.['群勢']||'';diaryMemo.value=r?.['メモ']||'';diaryPhotoAfter.checked=false;hideStatus('diaryStatus');diaryModal.classList.add('show')}
-async function saveDiary(){const id=diaryId.value,p={id,date:fmt(diaryDate.value),group:diaryGroup.value,framesChecked:diaryFramesChecked.value,eggs:diaryEggs.value,queen:diaryQueen.value,feeding:diaryFeeding.value,framesAdded:diaryFramesAdded.value,strength:diaryStrength.value,memo:diaryMemo.value.trim(),photo:''};await saveForm('diary',id,p,diaryPhotoAfter.checked)}
+function openDiary(r=null){diaryId.value=r?.['ID']||'';diaryTitle.textContent=r?'🐝 日誌を修正':'🐝 日誌を登録';diaryDelete.classList.toggle('hidden',!r);diaryDate.value=toInput(r?.['日付']);diaryGroup.value=r?.['群']||'A群';diaryFramesChecked.value=r?.['点検枚数']||'';diaryEggs.value=r?.['産卵']||'';diaryQueen.value=r?.['女王蜂']||'';diaryFeeding.value=r?.['給餌']||'';diaryFramesAdded.value=r?.['巣枠追加']||'';diaryStrength.value=r?.['群勢']||'';diaryMemo.value=r?.['メモ']||'';diaryPhotoAfter.checked=false;hideStatus('diaryStatus');diaryModal.classList.add('show')}
+async function saveDiary(){const p={id:diaryId.value,date:fmt(diaryDate.value),group:diaryGroup.value,framesChecked:diaryFramesChecked.value,eggs:diaryEggs.value,queen:diaryQueen.value,feeding:diaryFeeding.value,framesAdded:diaryFramesAdded.value,strength:diaryStrength.value,memo:diaryMemo.value.trim(),photo:''};await saveForm('diary',p,diaryPhotoAfter.checked)}
 
-function openNectar(r=null){nectarId.value=r?.['ID']||'';nectarTitle.textContent=r?'🌼 蜜源を修正':'🌼 蜜源を登録';nectarSave.textContent=r?'更新する':'登録する';nectarDelete.classList.toggle('hidden',!r);nectarDate.value=toInput(r?.['日付']);nectarPlant.value=r?plantName(r):'';nectarBloom.value=first(r||{},['開花状況','開花'])||'';nectarVisit.value=first(r||{},['訪花状況','訪花'])||'';nectarMemo.value=r?.['メモ']||'';nectarPhotoAfter.checked=false;hideStatus('nectarStatus');nectarModal.classList.add('show')}
-async function saveNectar(){const id=nectarId.value,p={id,date:fmt(nectarDate.value),plant:nectarPlant.value.trim(),bloom:nectarBloom.value,visit:nectarVisit.value,memo:nectarMemo.value.trim(),photo:''};await saveForm('nectar',id,p,nectarPhotoAfter.checked)}
+function openNectar(r=null){nectarId.value=r?.['ID']||'';nectarTitle.textContent=r?'🌼 蜜源を修正':'🌼 蜜源を登録';nectarDelete.classList.toggle('hidden',!r);nectarDate.value=toInput(r?.['日付']);nectarPlant.value=r?plantName(r):'';nectarBloom.value=first(r||{},['開花状況','開花'])||'';nectarVisit.value=first(r||{},['訪花状況','訪花'])||'';nectarMemo.value=r?.['メモ']||'';nectarPhotoAfter.checked=false;hideStatus('nectarStatus');nectarModal.classList.add('show')}
+async function saveNectar(){const p={id:nectarId.value,date:fmt(nectarDate.value),plant:nectarPlant.value.trim(),bloom:nectarBloom.value,visit:nectarVisit.value,memo:nectarMemo.value.trim(),photo:''};await saveForm('nectar',p,nectarPhotoAfter.checked)}
 
-function openHarvest(r=null){harvestId.value=r?.['ID']||'';harvestTitle.textContent=r?'🍯 採蜜を修正':'🍯 採蜜を登録';harvestSave.textContent=r?'更新する':'登録する';harvestDelete.classList.toggle('hidden',!r);harvestDate.value=toInput(r?.['日付']);harvestFrames.value=r?.['巣枠数']||'';harvestAmount.value=r?.['採蜜量(kg)']||'';harvestSugar.value=r?.['糖度']||'';harvestMemo.value=r?.['メモ']||'';harvestPhotoAfter.checked=false;hideStatus('harvestStatus');harvestModal.classList.add('show')}
-async function saveHarvest(){const id=harvestId.value,p={id,date:fmt(harvestDate.value),frames:harvestFrames.value,amountKg:harvestAmount.value,sugarContent:harvestSugar.value,memo:harvestMemo.value.trim(),photo:''};await saveForm('harvest',id,p,harvestPhotoAfter.checked)}
+function openHarvest(r=null){harvestId.value=r?.['ID']||'';harvestTitle.textContent=r?'🍯 採蜜を修正':'🍯 採蜜を登録';harvestDelete.classList.toggle('hidden',!r);harvestDate.value=toInput(r?.['日付']);harvestFrames.value=r?.['巣枠数']||'';harvestAmount.value=r?.['採蜜量(kg)']||'';harvestSugar.value=r?.['糖度']||'';harvestMemo.value=r?.['メモ']||'';harvestPhotoAfter.checked=false;hideStatus('harvestStatus');harvestModal.classList.add('show')}
+async function saveHarvest(){const p={id:harvestId.value,date:fmt(harvestDate.value),frames:harvestFrames.value,amountKg:harvestAmount.value,sugarContent:harvestSugar.value,memo:harvestMemo.value.trim(),photo:''};await saveForm('harvest',p,harvestPhotoAfter.checked)}
 
-async function saveForm(type,id,p,withPhoto){const sid=type+'Status';status(sid,id?'更新中...':'登録中...',true);try{const action=(id?'update':'register')+type[0].toUpperCase()+type.slice(1);const r=await jsonp(action,p);if(!r?.ok)throw new Error(r?.error||'保存できませんでした。');const recordId=r.id||id;if(withPhoto){const category=type==='diary'?'日誌':type==='nectar'?'蜜源':'採蜜';const u=await jsonp('photoUploadUrl',{recordId,date:p.date,category,group:p.group||'',plant:p.plant||'',title:category+'写真'});if(u?.ok){location.href=u.url;return}}closeModal(type+'Modal');await reloadData();toast(id?'更新しました':'登録しました')}catch(e){status(sid,e.message||String(e),false)}}
-async function deleteRecord(type){const id=document.getElementById(type+'Id').value;if(!id||!confirm('削除しますか？'))return;try{const action='delete'+type[0].toUpperCase()+type.slice(1);const r=await jsonp(action,{id});if(!r?.ok)throw new Error(r?.error||'削除できませんでした。');closeModal(type+'Modal');await reloadData();toast('削除しました')}catch(e){alert(e.message||String(e))}}
+async function saveForm(type,p,withPhoto){const sid=type+'Status';status(sid,'保存中...',true);try{const r=await api('save'+type[0].toUpperCase()+type.slice(1),p);if(!r?.ok)throw new Error(r?.error||'保存できませんでした。');if(withPhoto){const category=type==='diary'?'日誌':type==='nectar'?'蜜源':'採蜜';const u=await api('photoUploadUrl',{recordId:r.id||p.id,date:p.date,category,group:p.group||'',plant:p.plant||'',title:category+'写真'});if(u?.ok){location.href=u.url;return}}closeModal(type+'Modal');await reloadData();toast('保存しました')}catch(e){status(sid,e.message||String(e),false)}}
+async function deleteRecord(type){const id=document.getElementById(type+'Id').value;if(!id||!confirm('削除しますか？'))return;try{const r=await api('delete'+type[0].toUpperCase()+type.slice(1),{id});if(!r?.ok)throw new Error(r?.error||'削除できませんでした。');closeModal(type+'Modal');await reloadData();toast('削除しました')}catch(e){alert(e.message||String(e))}}
 
 function closeModal(id){document.getElementById(id).classList.remove('show')}
 function toInput(v){return v?String(v).replace(/\//g,'-'):new Date().toISOString().slice(0,10)}
