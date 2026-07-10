@@ -12,18 +12,59 @@
 <link rel="apple-touch-icon" sizes="180x180" href="./beenote-icon-180.png?v=4">
 <link rel="icon" type="image/png" href="./beenote-icon-512.png?v=4">
 <style>
-*{box-sizing:border-box}body{margin:0;background:#f3f5f1;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Sans","Yu Gothic",sans-serif;color:#222}button,input,select,textarea{font:inherit}header{background:#fff;padding:calc(14px + env(safe-area-inset-top)) 14px 13px;border-bottom:1px solid #ddd;position:sticky;top:0;z-index:20}.brand{display:flex;align-items:center;gap:10px;margin-bottom:12px}.brand img{width:44px;height:44px;border-radius:10px;object-fit:cover}.brand h1{margin:0;font-size:25px}.sub{margin-top:2px;color:#707770;font-size:12px}.quick{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:11px}.action{border:0;border-radius:12px;padding:13px 7px;font-size:16px;font-weight:700}.photo{background:#315d38;color:#fff}.nectar{background:#f1c84a}.tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}.tab{border:0;border-radius:10px;padding:11px 5px;font-size:14px;background:#e7ebe5}.tab.active{background:#315d38;color:#fff;font-weight:700}main{padding:13px 13px calc(20px + env(safe-area-inset-bottom));max-width:900px;margin:auto}.selector{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:13px}.selector button{border:1px solid #b9c1b7;background:#fff;border-radius:20px;padding:8px 14px;font-size:14px}.selector button.selected{background:#315d38;color:#fff;border-color:#315d38}.card{background:#fff;border-radius:14px;padding:14px;margin-bottom:11px;box-shadow:0 2px 8px rgba(0,0,0,.06)}.card-head{display:flex;justify-content:space-between;gap:10px;margin-bottom:10px}.date,.group,.plant{font-weight:700;font-size:17px}.item{display:grid;grid-template-columns:88px 1fr;gap:8px;margin:5px 0;line-height:1.45}.label{color:#707770;font-size:13px}.value{font-size:15px;overflow-wrap:anywhere}.memo{margin-top:9px;padding-top:9px;border-top:1px solid #edf0eb}.memo .label{margin-bottom:4px}.memo .value{line-height:1.55;white-space:pre-line}.photo-link{display:inline-block;margin-top:10px;padding:10px 14px;background:#315d38;color:#fff;text-decoration:none;border-radius:9px;font-weight:700}.empty,.loading{background:#fff;border-radius:14px;padding:25px;text-align:center;color:#777}.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.48);z-index:100;padding:calc(18px + env(safe-area-inset-top)) 18px calc(18px + env(safe-area-inset-bottom));overflow:auto}.modal.show{display:block}.box{background:#fff;border-radius:16px;max-width:520px;margin:20px auto;padding:19px}.box h2{font-size:21px;margin:0 0 15px}.fg{margin-bottom:13px}.fg label{display:block;font-size:14px;font-weight:700;margin-bottom:5px}input,select,textarea{width:100%;border:1px solid #c8cec6;border-radius:9px;padding:11px;font-size:16px;background:#fff}textarea{min-height:82px}.buttons{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:17px}.mb{border:0;border-radius:10px;padding:12px 8px;font-size:16px;font-weight:700}.cancel{background:#e7e9e6}.submit{background:#315d38;color:#fff}.status{display:none;margin-top:12px;padding:10px;border-radius:8px}.status.show{display:block}.ok{background:#e4f3e6;color:#24532b}.ng{background:#fce5e5;color:#8a2222}.retry{margin-top:12px;border:0;border-radius:9px;padding:10px 14px;background:#315d38;color:#fff;font-weight:700}
+*{box-sizing:border-box}body{margin:0;background:#f3f5f1;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Sans","Yu Gothic",sans-serif;color:#222}button,input,select,textarea{font:inherit}header{background:#fff;padding:calc(14px + env(safe-area-inset-top)) 14px 13px;border-bottom:1px solid #ddd;position:sticky;top:0;z-index:20}.brand{display:flex;align-items:center;gap:10px;margin-bottom:12px}.reload-button{margin-left:auto;width:42px;height:42px;border:0;border-radius:50%;background:#e7ebe5;color:#315d38;font-size:22px;font-weight:700;display:flex;align-items:center;justify-content:center;cursor:pointer}.reload-button:disabled{opacity:.55}.reload-button.spinning{animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}.brand img{width:44px;height:44px;border-radius:10px;object-fit:cover}.brand h1{margin:0;font-size:25px}.sub{margin-top:2px;color:#707770;font-size:12px}.quick{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:11px}.action{border:0;border-radius:12px;padding:13px 7px;font-size:16px;font-weight:700}.photo{background:#315d38;color:#fff}.nectar{background:#f1c84a}.tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}.tab{border:0;border-radius:10px;padding:11px 5px;font-size:14px;background:#e7ebe5}.tab.active{background:#315d38;color:#fff;font-weight:700}main{padding:13px 13px calc(20px + env(safe-area-inset-bottom));max-width:900px;margin:auto}.selector{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:13px}.selector button{border:1px solid #b9c1b7;background:#fff;border-radius:20px;padding:8px 14px;font-size:14px}.selector button.selected{background:#315d38;color:#fff;border-color:#315d38}.card{background:#fff;border-radius:14px;padding:14px;margin-bottom:11px;box-shadow:0 2px 8px rgba(0,0,0,.06)}.card-head{display:flex;justify-content:space-between;gap:10px;margin-bottom:10px}.date,.group,.plant{font-weight:700;font-size:17px}.item{display:grid;grid-template-columns:88px 1fr;gap:8px;margin:5px 0;line-height:1.45}.label{color:#707770;font-size:13px}.value{font-size:15px;overflow-wrap:anywhere}.memo{margin-top:9px;padding-top:9px;border-top:1px solid #edf0eb}.memo .label{margin-bottom:4px}.memo .value{line-height:1.55;white-space:pre-line}.photo-link{display:inline-block;margin-top:10px;padding:10px 14px;background:#315d38;color:#fff;text-decoration:none;border-radius:9px;font-weight:700}.empty,.loading{background:#fff;border-radius:14px;padding:25px;text-align:center;color:#777}.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.48);z-index:100;padding:calc(18px + env(safe-area-inset-top)) 18px calc(18px + env(safe-area-inset-bottom));overflow:auto}.modal.show{display:block}.box{background:#fff;border-radius:16px;max-width:520px;margin:20px auto;padding:19px}.box h2{font-size:21px;margin:0 0 15px}.fg{margin-bottom:13px}.fg label{display:block;font-size:14px;font-weight:700;margin-bottom:5px}input,select,textarea{width:100%;border:1px solid #c8cec6;border-radius:9px;padding:11px;font-size:16px;background:#fff}textarea{min-height:82px}.buttons{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:17px}.mb{border:0;border-radius:10px;padding:12px 8px;font-size:16px;font-weight:700}.cancel{background:#e7e9e6}.submit{background:#315d38;color:#fff}.status{display:none;margin-top:12px;padding:10px;border-radius:8px}.status.show{display:block}.ok{background:#e4f3e6;color:#24532b}.ng{background:#fce5e5;color:#8a2222}.retry{margin-top:12px;border:0;border-radius:9px;padding:10px 14px;background:#315d38;color:#fff;font-weight:700}
+
+.toast{
+  position:fixed;
+  left:50%;
+  bottom:calc(24px + env(safe-area-inset-bottom));
+  transform:translate(-50%,20px);
+  background:#243728;
+  color:#fff;
+  padding:10px 16px;
+  border-radius:999px;
+  font-size:14px;
+  font-weight:700;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .2s ease,transform .2s ease;
+  z-index:300;
+  box-shadow:0 4px 14px rgba(0,0,0,.18)
+}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.pull-indicator{
+  position:fixed;
+  top:calc(8px + env(safe-area-inset-top));
+  left:50%;
+  transform:translate(-50%,-60px);
+  background:#fff;
+  color:#315d38;
+  border-radius:999px;
+  padding:8px 14px;
+  font-size:13px;
+  font-weight:700;
+  box-shadow:0 3px 12px rgba(0,0,0,.14);
+  transition:transform .18s ease;
+  z-index:250;
+  pointer-events:none
+}
+.pull-indicator.show{transform:translate(-50%,0)}
+
 </style>
 </head>
 <body>
 <header>
-<div class="brand"><img src="./beenote-icon-180.png?v=4" alt="BeeNote"><div><h1>BeeNote</h1><div class="sub">Takeda Beekeeping Manager</div></div></div>
+<div class="brand"><img src="./beenote-icon-180.png?v=4" alt="BeeNote"><div><h1>BeeNote</h1><div class="sub">Takeda Beekeeping Manager</div></div><button id="reloadButton" class="reload-button" type="button" onclick="reloadData()" aria-label="最新情報に更新" title="更新">↻</button></div>
 <div class="quick"><button class="action photo" onclick="openPhoto()">📷 写真を登録</button><button class="action nectar" onclick="openNectar()">🌼 蜜源を登録</button></div>
 <div class="tabs"><button id="groupTab" class="tab active" onclick="changeMode('group')">群ごと</button><button id="dateTab" class="tab" onclick="changeMode('date')">日付ごと</button><button id="nectarTab" class="tab" onclick="changeMode('nectar')">蜜源を見る</button></div>
 </header>
 <main><div id="loading" class="loading">読み込み中...</div><div id="content" style="display:none"><div id="selector" class="selector"></div><div id="records"></div></div></main>
 <div id="photoModal" class="modal"><div class="box"><h2>📷 写真を登録</h2><div class="fg"><label>日付</label><input type="date" id="photoDate"></div><div class="fg"><label>登録先</label><select id="photoCategory" onchange="photoCategoryChanged()"><option value="日誌">養蜂日誌</option><option value="蜜源">蜜源</option><option value="採蜜">採蜜</option><option value="その他">その他</option></select></div><div id="photoGroupArea" class="fg"><label>群</label><select id="photoGroup"><option>A群</option><option>B群</option><option>C群</option><option>D群</option></select></div><div id="photoPlantArea" class="fg" style="display:none"><label>蜜源名</label><input id="photoPlant" placeholder="例：テリハボク"></div><div class="fg"><label>写真タイトル</label><input id="photoTitle" placeholder="例：B群 点検写真"></div><div class="fg"><label>コメント</label><textarea id="photoComment"></textarea></div><div id="photoStatus" class="status"></div><div class="buttons"><button class="mb cancel" onclick="closePhoto()">キャンセル</button><button class="mb submit" onclick="goPhotoUpload()">写真選択へ</button></div></div></div>
 <div id="nectarModal" class="modal"><div class="box"><h2>🌼 蜜源を登録</h2><div class="fg"><label>日付</label><input type="date" id="nectarDate"></div><div class="fg"><label>蜜源名</label><input id="nectarPlant" placeholder="例：テリハボク"></div><div class="fg"><label>開花状況</label><select id="nectarBloom"><option value="">選択してください</option><option>つぼみ</option><option>咲き始め</option><option>開花</option><option>かなり開花</option><option>満開</option><option>終盤</option><option>終了</option></select></div><div class="fg"><label>蜂の訪花</label><select id="nectarVisit"><option value="">選択してください</option><option>未確認</option><option>なし</option><option>少ない</option><option>あり</option><option>多い</option></select></div><div class="fg"><label>メモ</label><textarea id="nectarMemo"></textarea></div><div id="nectarStatus" class="status"></div><div class="buttons"><button class="mb cancel" onclick="closeNectar()">キャンセル</button><button class="mb submit" onclick="registerNectar()">登録する</button></div></div></div>
+
+<div id="pullIndicator" class="pull-indicator">↓ 引っ張って更新</div>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+
 <script>
 'use strict';
 const API='https://script.google.com/macros/s/AKfycbwbgz_RHYeBJRsKh1xzrdXqF1diYdnG5hZlySToLIM1igmoaBVHl1SnHD35-MG5duiZ5Q/exec';
@@ -32,6 +73,37 @@ document.addEventListener('DOMContentLoaded',()=>{setDates();loadAll();if('servi
 function jsonp(api,p={}){return new Promise((resolve,reject)=>{const cb='__bn'+Date.now()+Math.random().toString(36).slice(2),q=new URLSearchParams({...p,api,callback:cb,_:Date.now()}),s=document.createElement('script');let t=setTimeout(()=>{clean();reject(new Error('通信がタイムアウトしました。'));},20000);function clean(){clearTimeout(t);delete window[cb];s.remove()}window[cb]=r=>{clean();resolve(r)};s.onerror=()=>{clean();reject(new Error('BeeNoteサーバーへ接続できませんでした。'))};s.src=API+'?'+q;document.head.appendChild(s);});}
 function setDates(){const n=new Date(),d=new Date(n.getTime()-n.getTimezoneOffset()*60000).toISOString().slice(0,10);photoDate.value=d;nectarDate.value=d}
 async function loadAll(){try{loading.innerHTML='読み込み中...';const [d,n]=await Promise.all([jsonp('diary'),jsonp('nectar')]);if(!d?.ok)throw new Error(d?.error||'日誌を読み込めませんでした。');if(!n?.ok)throw new Error(n?.error||'蜜源を読み込めませんでした。');diaryData=d.data;nectarData=n.data;loading.style.display='none';content.style.display='block';selectedKey=diaryData.groupNames[0]||'';render()}catch(e){showError(e)}}
+async function reloadData(){
+  const b=document.getElementById('reloadButton');
+  if(b.disabled)return;
+  b.disabled=true;
+  b.classList.add('spinning');
+  const oldMode=currentMode,oldKey=selectedKey;
+  try{
+    const [d,n]=await Promise.all([jsonp('diary'),jsonp('nectar')]);
+    if(!d?.ok)throw new Error(d?.error||'日誌を読み込めませんでした。');
+    if(!n?.ok)throw new Error(n?.error||'蜜源を読み込めませんでした。');
+    diaryData=d.data;
+    nectarData=n.data;
+    currentMode=oldMode;
+    if(oldMode==='group'){
+      selectedKey=(diaryData.groupNames||[]).includes(oldKey)?oldKey:(diaryData.groupNames[0]||'');
+    }else if(oldMode==='date'){
+      selectedKey=(diaryData.dateList||[]).includes(oldKey)?oldKey:(diaryData.dateList[0]||'');
+    }else{
+      selectedKey=oldKey==='すべて'||(nectarData.plants||[]).includes(oldKey)?oldKey:'すべて';
+    }
+    render();
+    showToast('更新しました');
+  }catch(e){
+    showToast('更新できませんでした');
+    alert('更新できませんでした。
+'+(e.message||String(e)));
+  }finally{
+    b.disabled=false;
+    b.classList.remove('spinning');
+  }
+}
 function changeMode(m){currentMode=m;groupTab.classList.toggle('active',m==='group');dateTab.classList.toggle('active',m==='date');nectarTab.classList.toggle('active',m==='nectar');selectedKey=m==='group'?(diaryData.groupNames[0]||''):m==='date'?(diaryData.dateList[0]||''):'すべて';render()}
 function render(){renderSelector();renderRecords()}
 function renderSelector(){selector.innerHTML='';let keys=currentMode==='group'?diaryData.groupNames:currentMode==='date'?diaryData.dateList:['すべて',...(nectarData.plants||[])];keys.forEach(k=>{const b=document.createElement('button');b.textContent=k;if(k===selectedKey)b.classList.add('selected');b.onclick=()=>{selectedKey=k;render()};selector.appendChild(b)})}
@@ -47,6 +119,44 @@ async function goPhotoUpload(){const date=fmt(photoDate.value),category=photoCat
 function openNectar(){hideStatus('nectarStatus');nectarModal.classList.add('show')}function closeNectar(){nectarModal.classList.remove('show')}
 async function registerNectar(){const date=fmt(nectarDate.value),plant=nectarPlant.value.trim(),bloom=nectarBloom.value,visit=nectarVisit.value,memo=nectarMemo.value.trim();if(!date||!plant)return status('nectarStatus','日付と蜜源名を入力してください。',false);status('nectarStatus','登録中...',true);try{const r=await jsonp('registerNectar',{date,plant,bloom,visit,memo});if(!r?.ok)throw new Error(r?.error||'登録できませんでした。');status('nectarStatus','蜜源を登録しました。',true);nectarPlant.value='';nectarBloom.value='';nectarVisit.value='';nectarMemo.value='';const n=await jsonp('nectar');if(n?.ok)nectarData=n.data;setTimeout(()=>{closeNectar();changeMode('nectar')},600)}catch(e){status('nectarStatus',e.message||String(e),false)}}
 function fmt(v){return v?v.replace(/-/g,'/'):''}function status(id,m,ok){const e=document.getElementById(id);e.textContent=m;e.className='status show '+(ok?'ok':'ng')}function hideStatus(id){const e=document.getElementById(id);e.textContent='';e.className='status'}function esc(v){return String(v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;')}function showError(e){content.style.display='none';loading.style.display='block';loading.innerHTML='エラーが発生しました。<br>'+esc(e.message||String(e))+'<br><button class="retry" onclick="loadAll()">再読み込み</button>'}
+
+function showToast(message){
+  const toast=document.getElementById('toast');
+  toast.textContent=message;
+  toast.classList.add('show');
+  clearTimeout(showToast.timer);
+  showToast.timer=setTimeout(()=>toast.classList.remove('show'),1400);
+}
+
+let pullStartY=0;
+let pullReady=false;
+const pullIndicator=document.getElementById('pullIndicator');
+
+document.addEventListener('touchstart',function(e){
+  if(window.scrollY===0&&e.touches.length===1){
+    pullStartY=e.touches[0].clientY;
+    pullReady=false;
+  }
+},{passive:true});
+
+document.addEventListener('touchmove',function(e){
+  if(!pullStartY||window.scrollY!==0)return;
+  const distance=e.touches[0].clientY-pullStartY;
+  if(distance>35){
+    pullIndicator.classList.add('show');
+    pullIndicator.textContent=distance>85?'離して更新':'↓ 引っ張って更新';
+    pullReady=distance>85;
+  }
+},{passive:true});
+
+document.addEventListener('touchend',function(){
+  if(pullReady)reloadData();
+  pullIndicator.classList.remove('show');
+  pullIndicator.textContent='↓ 引っ張って更新';
+  pullStartY=0;
+  pullReady=false;
+},{passive:true});
+
 </script>
 </body>
 </html>
