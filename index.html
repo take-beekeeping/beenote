@@ -9,377 +9,171 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <title>BeeNote</title>
 <link rel="manifest" href="./manifest.json">
-<link rel="apple-touch-icon" sizes="180x180" href="./beenote-icon-180.png?v=5">
-<link rel="icon" type="image/png" href="./beenote-icon-512.png?v=5">
+<link rel="apple-touch-icon" sizes="180x180" href="./beenote-icon-180.png?v=6">
+<link rel="icon" type="image/png" href="./beenote-icon-512.png?v=6">
 <style>
-*{box-sizing:border-box}body{margin:0;background:#f3f5f1;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Sans","Yu Gothic",sans-serif;color:#222}button,input,select,textarea{font:inherit}header{background:#fff;padding:calc(14px + env(safe-area-inset-top)) 14px 13px;border-bottom:1px solid #ddd;position:sticky;top:0;z-index:20}.brand{display:flex;align-items:center;gap:10px;margin-bottom:12px}.reload-button{margin-left:auto;width:42px;height:42px;border:0;border-radius:50%;background:#e7ebe5;color:#315d38;font-size:22px;font-weight:700;display:flex;align-items:center;justify-content:center;cursor:pointer}.reload-button:disabled{opacity:.55}.reload-button.spinning{animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}.brand img{width:44px;height:44px;border-radius:10px;object-fit:cover}.brand h1{margin:0;font-size:25px}.sub{margin-top:2px;color:#707770;font-size:12px}.quick{display:grid;grid-template-columns:1fr 1fr;grid-template-areas:'diary diary' 'photo nectar';gap:9px;margin-bottom:11px}.action{border:0;border-radius:12px;padding:13px 7px;font-size:16px;font-weight:700;cursor:pointer}.diary-action{grid-area:diary;background:#315d38;color:#fff}.photo{grid-area:photo;background:#e7ebe5;color:#243728}.nectar{grid-area:nectar;background:#f1c84a}.tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}.tab{border:0;border-radius:10px;padding:11px 5px;font-size:14px;background:#e7ebe5}.tab.active{background:#315d38;color:#fff;font-weight:700}main{padding:13px 13px calc(20px + env(safe-area-inset-bottom));max-width:900px;margin:auto}.selector{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:13px}.selector button{border:1px solid #b9c1b7;background:#fff;border-radius:20px;padding:8px 14px;font-size:14px}.selector button.selected{background:#315d38;color:#fff;border-color:#315d38}.card{background:#fff;border-radius:14px;padding:14px;margin-bottom:11px;box-shadow:0 2px 8px rgba(0,0,0,.06)}.card-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px}.card-actions{display:flex;align-items:center;gap:8px}.edit-button{border:0;border-radius:9px;padding:7px 11px;background:#e7ebe5;color:#315d38;font-size:13px;font-weight:700;cursor:pointer}.danger-button{width:100%;margin-top:14px;border:1px solid #d9a4a4;border-radius:10px;padding:11px;background:#fff;color:#9a2626;font-weight:700;cursor:pointer}.hidden{display:none!important}.date,.group,.plant{font-weight:700;font-size:17px}.item{display:grid;grid-template-columns:88px 1fr;gap:8px;margin:5px 0;line-height:1.45}.label{color:#707770;font-size:13px}.value{font-size:15px;overflow-wrap:anywhere}.memo{margin-top:9px;padding-top:9px;border-top:1px solid #edf0eb}.memo .label{margin-bottom:4px}.memo .value{line-height:1.55;white-space:pre-line}.photo-link{display:inline-block;margin-top:10px;padding:10px 14px;background:#315d38;color:#fff;text-decoration:none;border-radius:9px;font-weight:700}.empty,.loading{background:#fff;border-radius:14px;padding:25px;text-align:center;color:#777}.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.48);z-index:100;padding:calc(18px + env(safe-area-inset-top)) 18px calc(18px + env(safe-area-inset-bottom));overflow:auto}.modal.show{display:block}.box{background:#fff;border-radius:16px;max-width:520px;margin:20px auto;padding:19px}.box h2{font-size:21px;margin:0 0 15px}.fg{margin-bottom:13px}.fg label{display:block;font-size:14px;font-weight:700;margin-bottom:5px}input,select,textarea{width:100%;border:1px solid #c8cec6;border-radius:9px;padding:11px;font-size:16px;background:#fff}textarea{min-height:82px}.buttons{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:17px}.mb{border:0;border-radius:10px;padding:12px 8px;font-size:16px;font-weight:700}.cancel{background:#e7e9e6}.submit{background:#315d38;color:#fff}.status{display:none;margin-top:12px;padding:10px;border-radius:8px}.status.show{display:block}.ok{background:#e4f3e6;color:#24532b}.ng{background:#fce5e5;color:#8a2222}.retry{margin-top:12px;border:0;border-radius:9px;padding:10px 14px;background:#315d38;color:#fff;font-weight:700}
-
-.toast{
-  position:fixed;
-  left:50%;
-  bottom:calc(24px + env(safe-area-inset-bottom));
-  transform:translate(-50%,20px);
-  background:#243728;
-  color:#fff;
-  padding:10px 16px;
-  border-radius:999px;
-  font-size:14px;
-  font-weight:700;
-  opacity:0;
-  pointer-events:none;
-  transition:opacity .2s ease,transform .2s ease;
-  z-index:300;
-  box-shadow:0 4px 14px rgba(0,0,0,.18)
-}
-.toast.show{opacity:1;transform:translate(-50%,0)}
-.pull-indicator{
-  position:fixed;
-  top:calc(8px + env(safe-area-inset-top));
-  left:50%;
-  transform:translate(-50%,-60px);
-  background:#fff;
-  color:#315d38;
-  border-radius:999px;
-  padding:8px 14px;
-  font-size:13px;
-  font-weight:700;
-  box-shadow:0 3px 12px rgba(0,0,0,.14);
-  transition:transform .18s ease;
-  z-index:250;
-  pointer-events:none
-}
-.pull-indicator.show{transform:translate(-50%,0)}
-
+*{box-sizing:border-box}
+:root{--g:#315d38;--gs:#e7ebe5;--y:#f1c84a;--bg:#f3f5f1;--muted:#707770}
+html,body{margin:0;min-height:100%;background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Sans","Yu Gothic",sans-serif;color:#222}
+button,input,select,textarea{font:inherit}
+.hidden{display:none!important}
+#login{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+.login-box{width:min(100%,420px);background:#fff;border-radius:18px;padding:24px;box-shadow:0 8px 28px rgba(0,0,0,.09);text-align:center}
+.login-box img{width:96px;height:96px;border-radius:22px}.login-box h1{margin:14px 0 4px}.login-box p{color:var(--muted);margin:0 0 18px}
+.login-box input{letter-spacing:.25em;text-align:center;font-size:22px}
+header{background:#fff;padding:calc(14px + env(safe-area-inset-top)) 14px 13px;border-bottom:1px solid #ddd;position:sticky;top:0;z-index:20}
+.brand{display:flex;align-items:center;gap:10px;margin-bottom:12px}.brand img{width:44px;height:44px;border-radius:10px}.brand h1{margin:0;font-size:25px}.sub{color:var(--muted);font-size:12px}
+.icon-btn{margin-left:auto;width:40px;height:40px;border:0;border-radius:50%;background:var(--gs);color:var(--g);font-size:20px;font-weight:700}
+.actions{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:11px}.action{border:0;border-radius:12px;padding:12px 5px;font-size:14px;font-weight:700}.diary{background:var(--g);color:#fff}.nectar{background:var(--y)}.harvest{background:#dca93b}
+.tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}.tab{border:0;border-radius:10px;padding:10px 3px;font-size:12px;background:var(--gs)}.tab.active{background:var(--g);color:#fff;font-weight:700}
+main{padding:13px 13px calc(24px + env(safe-area-inset-bottom));max-width:900px;margin:auto}
+.selector{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:13px}.selector button{border:1px solid #b9c1b7;background:#fff;border-radius:20px;padding:8px 14px}.selector button.selected{background:var(--g);color:#fff;border-color:var(--g)}
+.summary{background:#fff7d8;border-radius:14px;padding:14px;margin-bottom:11px;font-weight:700}
+.card{background:#fff;border-radius:14px;padding:14px;margin-bottom:11px;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.card-head{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px}.date,.name{font-weight:700;font-size:17px}.edit{border:0;border-radius:9px;padding:7px 11px;background:var(--gs);color:var(--g);font-weight:700}
+.item{display:grid;grid-template-columns:92px 1fr;gap:8px;margin:5px 0}.label{color:var(--muted);font-size:13px}.memo{margin-top:9px;padding-top:9px;border-top:1px solid #edf0eb;white-space:pre-line}.photo-link{display:inline-block;margin-top:10px;padding:10px 14px;background:var(--g);color:#fff;text-decoration:none;border-radius:9px;font-weight:700}
+.loading,.empty{background:#fff;border-radius:14px;padding:25px;text-align:center;color:#777}
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.48);z-index:100;padding:calc(18px + env(safe-area-inset-top)) 18px calc(18px + env(safe-area-inset-bottom));overflow:auto}.modal.show{display:block}
+.box{background:#fff;border-radius:16px;max-width:520px;margin:20px auto;padding:19px}.box h2{margin:0 0 15px}.fg{margin-bottom:13px}.fg label{display:block;font-size:14px;font-weight:700;margin-bottom:5px}
+input,select,textarea{width:100%;border:1px solid #c8cec6;border-radius:9px;padding:11px;font-size:16px;background:#fff}textarea{min-height:82px}
+.buttons{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:17px}.btn{border:0;border-radius:10px;padding:12px;font-weight:700}.cancel{background:#e7e9e6}.save{background:var(--g);color:#fff}.danger{width:100%;margin-top:14px;border:1px solid #d9a4a4;background:#fff;color:#9a2626}
+.status{display:none;margin-top:12px;padding:10px;border-radius:8px}.status.show{display:block}.ok{background:#e4f3e6;color:#24532b}.ng{background:#fce5e5;color:#8a2222}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom));transform:translate(-50%,20px);background:#243728;color:#fff;padding:10px 16px;border-radius:999px;opacity:0;transition:.2s;z-index:300}.toast.show{opacity:1;transform:translate(-50%,0)}
 </style>
 </head>
 <body>
-<header>
-<div class="brand"><img src="./beenote-icon-180.png?v=5" alt="BeeNote"><div><h1>BeeNote</h1><div class="sub">Takeda Beekeeping Manager</div></div><button id="reloadButton" class="reload-button" type="button" onclick="reloadData()" aria-label="最新情報に更新" title="更新">↻</button></div>
-<div class="quick"><button class="action diary-action" onclick="openDiaryCreate()">🐝 日誌を登録</button><button class="action photo" onclick="openPhoto()">📷 写真を登録</button><button class="action nectar" onclick="openNectar()">🌼 蜜源を登録</button></div>
-<div class="tabs"><button id="groupTab" class="tab active" onclick="changeMode('group')">群ごと</button><button id="dateTab" class="tab" onclick="changeMode('date')">日付ごと</button><button id="nectarTab" class="tab" onclick="changeMode('nectar')">蜜源を見る</button></div>
-</header>
-<main><div id="loading" class="loading">読み込み中...</div><div id="content" style="display:none"><div id="selector" class="selector"></div><div id="records"></div></div></main>
-
-<div id="diaryModal" class="modal">
-  <div class="box">
-    <h2 id="diaryModalTitle">🐝 日誌を登録</h2>
-    <input type="hidden" id="diaryId">
-
-    <div class="fg">
-      <label>日付</label>
-      <input type="date" id="diaryDate">
-    </div>
-
-    <div class="fg">
-      <label>群</label>
-      <select id="diaryGroup">
-        <option>A群</option><option>B群</option><option>C群</option><option>D群</option>
-      </select>
-    </div>
-
-    <div class="fg">
-      <label>点検枚数</label>
-      <input type="number" min="0" inputmode="numeric" id="diaryFramesChecked" placeholder="例：10">
-    </div>
-
-    <div class="fg">
-      <label>産卵</label>
-      <select id="diaryEggs">
-        <option value="">未入力</option><option>あり</option><option>なし</option><option>未確認</option>
-      </select>
-    </div>
-
-    <div class="fg">
-      <label>女王蜂</label>
-      <select id="diaryQueen">
-        <option value="">未入力</option><option>確認</option><option>未確認</option><option>なし</option>
-      </select>
-    </div>
-
-    <div class="fg">
-      <label>給餌</label>
-      <select id="diaryFeeding">
-        <option value="">未入力</option><option>なし</option><option>糖液</option><option>花粉</option><option>糖液・花粉</option>
-      </select>
-    </div>
-
-    <div class="fg">
-      <label>巣枠追加</label>
-      <input type="number" min="0" inputmode="numeric" id="diaryFramesAdded" placeholder="例：0">
-    </div>
-
-    <div class="fg">
-      <label>群勢</label>
-      <select id="diaryStrength">
-        <option value="">未入力</option><option>弱</option><option>普通</option><option>強</option>
-      </select>
-    </div>
-
-    <div class="fg">
-      <label>メモ</label>
-      <textarea id="diaryMemo" placeholder="例：台風対策を実施"></textarea>
-    </div>
-
-    <div class="fg">
-      <label>写真リンク</label>
-      <input type="url" id="diaryPhoto" placeholder="写真登録済みの場合は自動表示されます">
-    </div>
-
-    <div id="diaryStatus" class="status"></div>
-
-    <div class="buttons">
-      <button class="mb cancel" onclick="closeDiary()">キャンセル</button>
-      <button id="diarySubmitButton" class="mb submit" onclick="saveDiary()">登録する</button>
-    </div>
-
-    <button id="diaryDeleteButton" class="danger-button hidden" onclick="deleteDiaryEntry()">この日誌を削除</button>
+<section id="login">
+  <div class="login-box">
+    <img src="./beenote-icon-180.png?v=6" alt="BeeNote">
+    <h1>BeeNote</h1>
+    <p>8桁のPINを入力してください</p>
+    <input id="pinInput" type="password" inputmode="numeric" maxlength="8" placeholder="••••••••">
+    <button class="btn save" style="width:100%;margin-top:12px" onclick="login()">ログイン</button>
+    <div id="loginStatus" class="status"></div>
   </div>
-</div>
+</section>
 
-<div id="photoModal" class="modal"><div class="box"><h2>📷 写真を登録</h2><div class="fg"><label>日付</label><input type="date" id="photoDate"></div><div class="fg"><label>登録先</label><select id="photoCategory" onchange="photoCategoryChanged()"><option value="日誌">養蜂日誌</option><option value="蜜源">蜜源</option><option value="採蜜">採蜜</option><option value="その他">その他</option></select></div><div id="photoGroupArea" class="fg"><label>群</label><select id="photoGroup"><option>A群</option><option>B群</option><option>C群</option><option>D群</option></select></div><div id="photoPlantArea" class="fg" style="display:none"><label>蜜源名</label><input id="photoPlant" placeholder="例：テリハボク"></div><div class="fg"><label>写真タイトル</label><input id="photoTitle" placeholder="例：B群 点検写真"></div><div class="fg"><label>コメント</label><textarea id="photoComment"></textarea></div><div id="photoStatus" class="status"></div><div class="buttons"><button class="mb cancel" onclick="closePhoto()">キャンセル</button><button class="mb submit" onclick="goPhotoUpload()">写真選択へ</button></div></div></div>
-<div id="nectarModal" class="modal"><div class="box"><h2>🌼 蜜源を登録</h2><div class="fg"><label>日付</label><input type="date" id="nectarDate"></div><div class="fg"><label>蜜源名</label><input id="nectarPlant" placeholder="例：テリハボク"></div><div class="fg"><label>開花状況</label><select id="nectarBloom"><option value="">選択してください</option><option>つぼみ</option><option>咲き始め</option><option>開花</option><option>かなり開花</option><option>満開</option><option>終盤</option><option>終了</option></select></div><div class="fg"><label>蜂の訪花</label><select id="nectarVisit"><option value="">選択してください</option><option>未確認</option><option>なし</option><option>少ない</option><option>あり</option><option>多い</option></select></div><div class="fg"><label>メモ</label><textarea id="nectarMemo"></textarea></div><div id="nectarStatus" class="status"></div><div class="buttons"><button class="mb cancel" onclick="closeNectar()">キャンセル</button><button class="mb submit" onclick="registerNectar()">登録する</button></div></div></div>
+<section id="app" class="hidden">
+<header>
+  <div class="brand">
+    <img src="./beenote-icon-180.png?v=6" alt="BeeNote">
+    <div><h1>BeeNote</h1><div class="sub">Takeda Beekeeping Manager</div></div>
+    <button class="icon-btn" onclick="reloadData()" title="更新">↻</button>
+    <button class="icon-btn" onclick="logout()" title="ログアウト">⇥</button>
+  </div>
+  <div class="actions">
+    <button class="action diary" onclick="openDiary()">🐝 日誌</button>
+    <button class="action nectar" onclick="openNectar()">🌼 蜜源</button>
+    <button class="action harvest" onclick="openHarvest()">🍯 採蜜</button>
+  </div>
+  <div class="tabs">
+    <button id="groupTab" class="tab active" onclick="changeMode('group')">群ごと</button>
+    <button id="dateTab" class="tab" onclick="changeMode('date')">日付ごと</button>
+    <button id="nectarTab" class="tab" onclick="changeMode('nectar')">蜜源</button>
+    <button id="harvestTab" class="tab" onclick="changeMode('harvest')">採蜜</button>
+  </div>
+</header>
+<main>
+  <div id="loading" class="loading">読み込み中...</div>
+  <div id="content" class="hidden"><div id="selector" class="selector"></div><div id="records"></div></div>
+</main>
+</section>
 
-<div id="pullIndicator" class="pull-indicator">↓ 引っ張って更新</div>
-<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<div id="diaryModal" class="modal"><div class="box">
+<h2 id="diaryTitle">🐝 日誌を登録</h2><input type="hidden" id="diaryId">
+<div class="fg"><label>日付</label><input type="date" id="diaryDate"></div>
+<div class="fg"><label>群</label><select id="diaryGroup"><option>A群</option><option>B群</option><option>C群</option><option>D群</option></select></div>
+<div class="fg"><label>点検枚数</label><input type="number" min="0" id="diaryFramesChecked"></div>
+<div class="fg"><label>産卵</label><select id="diaryEggs"><option value="">未入力</option><option>あり</option><option>なし</option><option>未確認</option></select></div>
+<div class="fg"><label>女王蜂</label><select id="diaryQueen"><option value="">未入力</option><option>確認</option><option>未確認</option><option>なし</option></select></div>
+<div class="fg"><label>給餌</label><select id="diaryFeeding"><option value="">未入力</option><option>なし</option><option>糖液</option><option>花粉</option><option>糖液・花粉</option></select></div>
+<div class="fg"><label>巣枠追加</label><input type="number" min="0" id="diaryFramesAdded"></div>
+<div class="fg"><label>群勢</label><select id="diaryStrength"><option value="">未入力</option><option>弱</option><option>普通</option><option>強</option></select></div>
+<div class="fg"><label>メモ</label><textarea id="diaryMemo"></textarea></div>
+<div class="fg"><label><input type="checkbox" id="diaryPhotoAfter" style="width:auto"> 登録後に写真を追加</label></div>
+<div id="diaryStatus" class="status"></div>
+<div class="buttons"><button class="btn cancel" onclick="closeModal('diaryModal')">キャンセル</button><button id="diarySave" class="btn save" onclick="saveDiary()">登録する</button></div>
+<button id="diaryDelete" class="btn danger hidden" onclick="deleteRecord('diary')">この日誌を削除</button>
+</div></div>
+
+<div id="nectarModal" class="modal"><div class="box">
+<h2 id="nectarTitle">🌼 蜜源を登録</h2><input type="hidden" id="nectarId">
+<div class="fg"><label>日付</label><input type="date" id="nectarDate"></div>
+<div class="fg"><label>蜜源名</label><input id="nectarPlant"></div>
+<div class="fg"><label>開花状況</label><select id="nectarBloom"><option value="">未入力</option><option>つぼみ</option><option>咲き始め</option><option>開花</option><option>かなり開花</option><option>満開</option><option>終盤</option><option>終了</option></select></div>
+<div class="fg"><label>訪花状況</label><select id="nectarVisit"><option value="">未入力</option><option>未確認</option><option>なし</option><option>少ない</option><option>あり</option><option>多い</option></select></div>
+<div class="fg"><label>メモ</label><textarea id="nectarMemo"></textarea></div>
+<div class="fg"><label><input type="checkbox" id="nectarPhotoAfter" style="width:auto"> 登録後に写真を追加</label></div>
+<div id="nectarStatus" class="status"></div>
+<div class="buttons"><button class="btn cancel" onclick="closeModal('nectarModal')">キャンセル</button><button id="nectarSave" class="btn save" onclick="saveNectar()">登録する</button></div>
+<button id="nectarDelete" class="btn danger hidden" onclick="deleteRecord('nectar')">この蜜源を削除</button>
+</div></div>
+
+<div id="harvestModal" class="modal"><div class="box">
+<h2 id="harvestTitle">🍯 採蜜を登録</h2><input type="hidden" id="harvestId">
+<div class="fg"><label>日付</label><input type="date" id="harvestDate"></div>
+<div class="fg"><label>巣枠数</label><input type="number" min="0" id="harvestFrames"></div>
+<div class="fg"><label>採蜜量（kg）</label><input type="number" min="0" step="0.01" id="harvestAmount"></div>
+<div class="fg"><label>糖度</label><input type="number" min="0" step="0.1" id="harvestSugar"></div>
+<div class="fg"><label>メモ</label><textarea id="harvestMemo"></textarea></div>
+<div class="fg"><label><input type="checkbox" id="harvestPhotoAfter" style="width:auto"> 登録後に写真を追加</label></div>
+<div id="harvestStatus" class="status"></div>
+<div class="buttons"><button class="btn cancel" onclick="closeModal('harvestModal')">キャンセル</button><button id="harvestSave" class="btn save" onclick="saveHarvest()">登録する</button></div>
+<button id="harvestDelete" class="btn danger hidden" onclick="deleteRecord('harvest')">この採蜜記録を削除</button>
+</div></div>
+
+<div id="toast" class="toast"></div>
 
 <script>
 'use strict';
 const API='https://script.google.com/macros/s/AKfycbwbgz_RHYeBJRsKh1xzrdXqF1diYdnG5hZlySToLIM1igmoaBVHl1SnHD35-MG5duiZ5Q/exec';
-let diaryData=null,nectarData=null,currentMode='group',selectedKey='';
-document.addEventListener('DOMContentLoaded',()=>{setDates();loadAll();if('serviceWorker'in navigator)navigator.serviceWorker.register('./service-worker.js').catch(()=>{});});
-function jsonp(api,p={}){return new Promise((resolve,reject)=>{const cb='__bn'+Date.now()+Math.random().toString(36).slice(2),q=new URLSearchParams({...p,api,callback:cb,_:Date.now()}),s=document.createElement('script');let t=setTimeout(()=>{clean();reject(new Error('通信がタイムアウトしました。'));},20000);function clean(){clearTimeout(t);delete window[cb];s.remove()}window[cb]=r=>{clean();resolve(r)};s.onerror=()=>{clean();reject(new Error('BeeNoteサーバーへ接続できませんでした。'))};s.src=API+'?'+q;document.head.appendChild(s);});}
-function setDates(){const n=new Date(),d=new Date(n.getTime()-n.getTimezoneOffset()*60000).toISOString().slice(0,10);diaryDate.value=d;photoDate.value=d;nectarDate.value=d}
-async function loadAll(){try{loading.innerHTML='読み込み中...';const [d,n]=await Promise.all([jsonp('diary'),jsonp('nectar')]);if(!d?.ok)throw new Error(d?.error||'日誌を読み込めませんでした。');if(!n?.ok)throw new Error(n?.error||'蜜源を読み込めませんでした。');diaryData=d.data;nectarData=n.data;loading.style.display='none';content.style.display='block';selectedKey=diaryData.groupNames[0]||'';render()}catch(e){showError(e)}}
-async function reloadData(){
-  const b=document.getElementById('reloadButton');
-  if(b.disabled)return;
-  b.disabled=true;
-  b.classList.add('spinning');
-  const oldMode=currentMode,oldKey=selectedKey;
-  try{
-    const [d,n]=await Promise.all([jsonp('diary'),jsonp('nectar')]);
-    if(!d?.ok)throw new Error(d?.error||'日誌を読み込めませんでした。');
-    if(!n?.ok)throw new Error(n?.error||'蜜源を読み込めませんでした。');
-    diaryData=d.data;
-    nectarData=n.data;
-    currentMode=oldMode;
-    if(oldMode==='group'){
-      selectedKey=(diaryData.groupNames||[]).includes(oldKey)?oldKey:(diaryData.groupNames[0]||'');
-    }else if(oldMode==='date'){
-      selectedKey=(diaryData.dateList||[]).includes(oldKey)?oldKey:(diaryData.dateList[0]||'');
-    }else{
-      selectedKey=oldKey==='すべて'||(nectarData.plants||[]).includes(oldKey)?oldKey:'すべて';
-    }
-    render();
-    showToast('更新しました');
-  }catch(e){
-    showToast('更新できませんでした');
-    alert('更新できませんでした。\n'+(e.message||String(e)));
-  }finally{
-    b.disabled=false;
-    b.classList.remove('spinning');
-  }
-}
-function changeMode(m){currentMode=m;groupTab.classList.toggle('active',m==='group');dateTab.classList.toggle('active',m==='date');nectarTab.classList.toggle('active',m==='nectar');selectedKey=m==='group'?(diaryData.groupNames[0]||''):m==='date'?(diaryData.dateList[0]||''):'すべて';render()}
+const TOKEN_KEY='beenote_v5_token';
+let token=localStorage.getItem(TOKEN_KEY)||'';
+let diaryData=null,nectarData=null,harvestData=null,currentMode='group',selectedKey='';
+
+document.addEventListener('DOMContentLoaded',async()=>{setDates();if(token&&await checkAuth()){showApp();loadAll()}else showLogin();if('serviceWorker'in navigator)navigator.serviceWorker.register('./service-worker.js').catch(()=>{})});
+
+function jsonp(api,p={}){return new Promise((resolve,reject)=>{const cb='__bn'+Date.now()+Math.random().toString(36).slice(2),q=new URLSearchParams({...p,api,token,callback:cb,_:Date.now()}),s=document.createElement('script');const t=setTimeout(()=>{clean();reject(new Error('通信がタイムアウトしました。'))},20000);function clean(){clearTimeout(t);delete window[cb];s.remove()}window[cb]=r=>{clean();if(r&&r.authRequired){logout();reject(new Error(r.error))}else resolve(r)};s.onerror=()=>{clean();reject(new Error('BeeNoteサーバーへ接続できませんでした。'))};s.src=API+'?'+q;document.head.appendChild(s)})}
+async function checkAuth(){try{const r=await jsonp('health');return !!r?.authenticated}catch(e){return false}}
+function showLogin(){login.classList.remove('hidden');app.classList.add('hidden')}
+function showApp(){login.classList.add('hidden');app.classList.remove('hidden')}
+async function login(){const pin=pinInput.value.trim();if(!/^\\d{8}$/.test(pin))return status('loginStatus','8桁の数字を入力してください。',false);status('loginStatus','確認中...',true);try{const r=await jsonp('login',{pin});if(!r?.ok)throw new Error(r?.error||'ログインできませんでした。');token=r.token;localStorage.setItem(TOKEN_KEY,token);pinInput.value='';showApp();loadAll()}catch(e){status('loginStatus',e.message||String(e),false)}}
+function logout(){localStorage.removeItem(TOKEN_KEY);token='';showLogin()}
+function setDates(){const n=new Date(),d=new Date(n.getTime()-n.getTimezoneOffset()*60000).toISOString().slice(0,10);diaryDate.value=d;nectarDate.value=d;harvestDate.value=d}
+async function loadAll(){loading.textContent='読み込み中...';loading.classList.remove('hidden');content.classList.add('hidden');try{const [d,n,h]=await Promise.all([jsonp('diary'),jsonp('nectar'),jsonp('harvest')]);if(!d?.ok)throw new Error(d?.error);if(!n?.ok)throw new Error(n?.error);if(!h?.ok)throw new Error(h?.error);diaryData=d.data;nectarData=n.data;harvestData=h.data;selectedKey=diaryData.groupNames[0]||'';loading.classList.add('hidden');content.classList.remove('hidden');render()}catch(e){loading.innerHTML='エラーが発生しました。<br>'+esc(e.message||String(e))}}
+async function reloadData(){await loadAll();toast('更新しました')}
+function changeMode(m){currentMode=m;['group','date','nectar','harvest'].forEach(x=>document.getElementById(x+'Tab').classList.toggle('active',x===m));selectedKey=m==='group'?(diaryData.groupNames[0]||''):m==='date'?(diaryData.dateList[0]||''):m==='nectar'?'すべて':'';render()}
 function render(){renderSelector();renderRecords()}
-function renderSelector(){selector.innerHTML='';let keys=currentMode==='group'?diaryData.groupNames:currentMode==='date'?diaryData.dateList:['すべて',...(nectarData.plants||[])];keys.forEach(k=>{const b=document.createElement('button');b.textContent=k;if(k===selectedKey)b.classList.add('selected');b.onclick=()=>{selectedKey=k;render()};selector.appendChild(b)})}
-function renderRecords(){records.innerHTML='';if(currentMode==='nectar')return renderNectar();const rs=currentMode==='group'?(diaryData.groups[selectedKey]||[]):(diaryData.dates[selectedKey]||[]);if(!rs.length){records.innerHTML='<div class="empty">記録がありません。</div>';return}rs.forEach(r=>records.appendChild(diaryCard(r)))}
-function diaryCard(r){
-  const c=document.createElement('div');
-  c.className='card';
-  const head=document.createElement('div');
-  head.className='card-head';
-
-  const left=document.createElement('div');
-  left.innerHTML='<div class="date">'+esc(r['日付']||'')+'</div><div class="group">'+esc(r['群']||'')+'</div>';
-
-  const actions=document.createElement('div');
-  actions.className='card-actions';
-  const edit=document.createElement('button');
-  edit.type='button';
-  edit.className='edit-button';
-  edit.textContent='修正';
-  edit.onclick=()=>openDiaryEdit(r);
-  actions.appendChild(edit);
-
-  head.appendChild(left);
-  head.appendChild(actions);
-  c.appendChild(head);
-
-  [['女王蜂',r['女王蜂']],['点検枚数',r['点検枚数']],['産卵',r['産卵']],['給餌',r['給餌']],['巣枠追加',r['巣枠追加']],['群勢',r['群勢']]].forEach(x=>addItem(c,x[0],x[1]));
-  addMemo(c,r['メモ']);
-  addPhoto(c,r['写真']);
-  return c
-}
-function renderNectar(){let rs=[...(nectarData.records||[])];if(selectedKey!=='すべて')rs=rs.filter(r=>plantName(r)===selectedKey);if(!rs.length){records.innerHTML='<div class="empty">蜜源記録がありません。</div>';return}rs.forEach(r=>{const c=document.createElement('div');c.className='card';c.innerHTML='<div class="card-head"><div class="date">'+esc(r['日付']||'')+'</div><div class="plant">🌼 '+esc(plantName(r))+'</div></div>';addItem(c,'開花',first(r,['開花状況','開花','開花状態']));addItem(c,'訪花',first(r,['訪花状況','訪花','蜂の訪花']));addMemo(c,first(r,['メモ','備考','コメント']));addPhoto(c,first(r,['写真','写真URL']));records.appendChild(c)})}
+function renderSelector(){selector.innerHTML='';let keys=[];if(currentMode==='group')keys=diaryData.groupNames;if(currentMode==='date')keys=diaryData.dateList;if(currentMode==='nectar')keys=['すべて',...(nectarData.plants||[])];keys.forEach(k=>{const b=document.createElement('button');b.textContent=k;if(k===selectedKey)b.classList.add('selected');b.onclick=()=>{selectedKey=k;render()};selector.appendChild(b)})}
+function renderRecords(){records.innerHTML='';if(currentMode==='nectar')return renderNectar();if(currentMode==='harvest')return renderHarvest();const rs=currentMode==='group'?(diaryData.groups[selectedKey]||[]):(diaryData.dates[selectedKey]||[]);if(!rs.length)return records.innerHTML='<div class="empty">記録がありません。</div>';rs.forEach(r=>records.appendChild(diaryCard(r)))}
+function diaryCard(r){const c=cardHead(r['日付'],r['群'],()=>openDiary(r));[['女王蜂',r['女王蜂']],['点検枚数',r['点検枚数']],['産卵',r['産卵']],['給餌',r['給餌']],['巣枠追加',r['巣枠追加']],['群勢',r['群勢']]].forEach(x=>item(c,x[0],x[1]));memo(c,r['メモ']);photo(c,r['写真']);return c}
+function renderNectar(){let rs=[...(nectarData.records||[])];if(selectedKey!=='すべて')rs=rs.filter(r=>plantName(r)===selectedKey);if(!rs.length)return records.innerHTML='<div class="empty">蜜源記録がありません。</div>';rs.forEach(r=>{const c=cardHead(r['日付'],'🌼 '+plantName(r),()=>openNectar(r));item(c,'開花',first(r,['開花状況','開花']));item(c,'訪花',first(r,['訪花状況','訪花']));memo(c,r['メモ']);photo(c,r['写真']);records.appendChild(c)})}
+function renderHarvest(){records.innerHTML='<div class="summary">累計採蜜量：'+esc(harvestData.totalKg||0)+' kg</div>';const rs=harvestData.records||[];if(!rs.length)return records.innerHTML+='<div class="empty">採蜜記録がありません。</div>';rs.forEach(r=>{const c=cardHead(r['日付'],'🍯 '+(r['採蜜量(kg)']||'')+' kg',()=>openHarvest(r));item(c,'巣枠数',r['巣枠数']);item(c,'糖度',r['糖度']);memo(c,r['メモ']);photo(c,r['写真']);records.appendChild(c)})}
+function cardHead(d,n,editFn){const c=document.createElement('div');c.className='card';const h=document.createElement('div');h.className='card-head';h.innerHTML='<div><div class="date">'+esc(d||'')+'</div><div class="name">'+esc(n||'')+'</div></div>';const b=document.createElement('button');b.className='edit';b.textContent='修正';b.onclick=editFn;h.appendChild(b);c.appendChild(h);return c}
+function item(c,l,v){if(!v)return;const d=document.createElement('div');d.className='item';d.innerHTML='<div class="label">'+esc(l)+'</div><div>'+esc(v)+'</div>';c.appendChild(d)}
+function memo(c,v){if(!v)return;const d=document.createElement('div');d.className='memo';d.innerHTML='<div class="label">メモ</div>'+esc(v);c.appendChild(d)}
+function photo(c,u){if(!u||!/^https?:/.test(u))return;const a=document.createElement('a');a.className='photo-link';a.href=u;a.target='_blank';a.rel='noopener';a.textContent='📷 写真を見る';c.appendChild(a)}
 function plantName(r){return first(r,['蜜源名','植物名','植物','蜜源'])||'名称未登録'}function first(r,ks){for(const k of ks)if(r[k])return r[k];return''}
-function addItem(c,l,v){if(!v)return;const d=document.createElement('div');d.className='item';d.innerHTML='<div class="label">'+esc(l)+'</div><div class="value">'+esc(v)+'</div>';c.appendChild(d)}
-function addMemo(c,v){if(!v)return;const d=document.createElement('div');d.className='memo';d.innerHTML='<div class="label">メモ</div><div class="value">'+esc(v)+'</div>';c.appendChild(d)}
-function addPhoto(c,u){if(!u||!/^https?:\/\//.test(u))return;const a=document.createElement('a');a.className='photo-link';a.href=u;a.target='_blank';a.rel='noopener';a.textContent='📷 写真を見る';c.appendChild(a)}
 
-function openDiaryCreate(){
-  hideStatus('diaryStatus');
-  diaryId.value='';
-  diaryModalTitle.textContent='🐝 日誌を登録';
-  diarySubmitButton.textContent='登録する';
-  diaryDeleteButton.classList.add('hidden');
-  setDiaryForm({
-    '日付':todayValue(),
-    '群':selectedKey&&selectedKey.endsWith('群')?selectedKey:'A群'
-  });
-  diaryModal.classList.add('show');
-}
+function openDiary(r=null){diaryId.value=r?.['ID']||'';diaryTitle.textContent=r?'🐝 日誌を修正':'🐝 日誌を登録';diarySave.textContent=r?'更新する':'登録する';diaryDelete.classList.toggle('hidden',!r);diaryDate.value=toInput(r?.['日付']);diaryGroup.value=r?.['群']||'A群';diaryFramesChecked.value=r?.['点検枚数']||'';diaryEggs.value=r?.['産卵']||'';diaryQueen.value=r?.['女王蜂']||'';diaryFeeding.value=r?.['給餌']||'';diaryFramesAdded.value=r?.['巣枠追加']||'';diaryStrength.value=r?.['群勢']||'';diaryMemo.value=r?.['メモ']||'';diaryPhotoAfter.checked=false;hideStatus('diaryStatus');diaryModal.classList.add('show')}
+async function saveDiary(){const id=diaryId.value,p={id,date:fmt(diaryDate.value),group:diaryGroup.value,framesChecked:diaryFramesChecked.value,eggs:diaryEggs.value,queen:diaryQueen.value,feeding:diaryFeeding.value,framesAdded:diaryFramesAdded.value,strength:diaryStrength.value,memo:diaryMemo.value.trim(),photo:''};await saveForm('diary',id,p,diaryPhotoAfter.checked)}
 
-function openDiaryEdit(r){
-  hideStatus('diaryStatus');
-  diaryId.value=r['ID']||'';
-  diaryModalTitle.textContent='🐝 日誌を修正';
-  diarySubmitButton.textContent='更新する';
-  diaryDeleteButton.classList.remove('hidden');
-  setDiaryForm(r);
-  diaryModal.classList.add('show');
-}
+function openNectar(r=null){nectarId.value=r?.['ID']||'';nectarTitle.textContent=r?'🌼 蜜源を修正':'🌼 蜜源を登録';nectarSave.textContent=r?'更新する':'登録する';nectarDelete.classList.toggle('hidden',!r);nectarDate.value=toInput(r?.['日付']);nectarPlant.value=r?plantName(r):'';nectarBloom.value=first(r||{},['開花状況','開花'])||'';nectarVisit.value=first(r||{},['訪花状況','訪花'])||'';nectarMemo.value=r?.['メモ']||'';nectarPhotoAfter.checked=false;hideStatus('nectarStatus');nectarModal.classList.add('show')}
+async function saveNectar(){const id=nectarId.value,p={id,date:fmt(nectarDate.value),plant:nectarPlant.value.trim(),bloom:nectarBloom.value,visit:nectarVisit.value,memo:nectarMemo.value.trim(),photo:''};await saveForm('nectar',id,p,nectarPhotoAfter.checked)}
 
-function closeDiary(){
-  diaryModal.classList.remove('show');
-}
+function openHarvest(r=null){harvestId.value=r?.['ID']||'';harvestTitle.textContent=r?'🍯 採蜜を修正':'🍯 採蜜を登録';harvestSave.textContent=r?'更新する':'登録する';harvestDelete.classList.toggle('hidden',!r);harvestDate.value=toInput(r?.['日付']);harvestFrames.value=r?.['巣枠数']||'';harvestAmount.value=r?.['採蜜量(kg)']||'';harvestSugar.value=r?.['糖度']||'';harvestMemo.value=r?.['メモ']||'';harvestPhotoAfter.checked=false;hideStatus('harvestStatus');harvestModal.classList.add('show')}
+async function saveHarvest(){const id=harvestId.value,p={id,date:fmt(harvestDate.value),frames:harvestFrames.value,amountKg:harvestAmount.value,sugarContent:harvestSugar.value,memo:harvestMemo.value.trim(),photo:''};await saveForm('harvest',id,p,harvestPhotoAfter.checked)}
 
-function todayValue(){
-  const n=new Date();
-  return new Date(n.getTime()-n.getTimezoneOffset()*60000).toISOString().slice(0,10);
-}
+async function saveForm(type,id,p,withPhoto){const sid=type+'Status';status(sid,id?'更新中...':'登録中...',true);try{const action=(id?'update':'register')+type[0].toUpperCase()+type.slice(1);const r=await jsonp(action,p);if(!r?.ok)throw new Error(r?.error||'保存できませんでした。');const recordId=r.id||id;if(withPhoto){const category=type==='diary'?'日誌':type==='nectar'?'蜜源':'採蜜';const u=await jsonp('photoUploadUrl',{recordId,date:p.date,category,group:p.group||'',plant:p.plant||'',title:category+'写真'});if(u?.ok){location.href=u.url;return}}closeModal(type+'Modal');await reloadData();toast(id?'更新しました':'登録しました')}catch(e){status(sid,e.message||String(e),false)}}
+async function deleteRecord(type){const id=document.getElementById(type+'Id').value;if(!id||!confirm('削除しますか？'))return;try{const action='delete'+type[0].toUpperCase()+type.slice(1);const r=await jsonp(action,{id});if(!r?.ok)throw new Error(r?.error||'削除できませんでした。');closeModal(type+'Modal');await reloadData();toast('削除しました')}catch(e){alert(e.message||String(e))}}
 
-function serverDateToInput(v){
-  if(!v)return todayValue();
-  const s=String(v).replace(/\//g,'-');
-  return /^\d{4}-\d{2}-\d{2}$/.test(s)?s:todayValue();
-}
-
-function setDiaryForm(r){
-  diaryDate.value=serverDateToInput(r['日付']||'');
-  diaryGroup.value=r['群']||'A群';
-  diaryFramesChecked.value=r['点検枚数']||'';
-  diaryEggs.value=r['産卵']||'';
-  diaryQueen.value=r['女王蜂']||'';
-  diaryFeeding.value=r['給餌']||'';
-  diaryFramesAdded.value=r['巣枠追加']||'';
-  diaryStrength.value=r['群勢']||'';
-  diaryMemo.value=r['メモ']||'';
-  diaryPhoto.value=r['写真']||'';
-}
-
-async function saveDiary(){
-  const id=diaryId.value;
-  const params={
-    id:id,
-    date:fmt(diaryDate.value),
-    group:diaryGroup.value,
-    framesChecked:diaryFramesChecked.value,
-    eggs:diaryEggs.value,
-    queen:diaryQueen.value,
-    feeding:diaryFeeding.value,
-    framesAdded:diaryFramesAdded.value,
-    strength:diaryStrength.value,
-    memo:diaryMemo.value.trim(),
-    photo:diaryPhoto.value.trim()
-  };
-
-  if(!params.date||!params.group){
-    status('diaryStatus','日付と群を入力してください。',false);
-    return;
-  }
-
-  status('diaryStatus',id?'更新中...':'登録中...',true);
-  diarySubmitButton.disabled=true;
-
-  try{
-    const action=id?'updateDiary':'registerDiary';
-    const r=await jsonp(action,params);
-    if(!r?.ok)throw new Error(r?.error||(id?'更新できませんでした。':'登録できませんでした。'));
-
-    status('diaryStatus',id?'日誌を更新しました。':'日誌を登録しました。',true);
-    await reloadData();
-
-    setTimeout(()=>{
-      closeDiary();
-      currentMode='group';
-      selectedKey=params.group;
-      groupTab.classList.add('active');
-      dateTab.classList.remove('active');
-      nectarTab.classList.remove('active');
-      render();
-    },500);
-  }catch(e){
-    status('diaryStatus',e.message||String(e),false);
-  }finally{
-    diarySubmitButton.disabled=false;
-  }
-}
-
-async function deleteDiaryEntry(){
-  const id=diaryId.value;
-  if(!id)return;
-  if(!confirm('この日誌を削除しますか？\n削除後は元に戻せません。'))return;
-
-  diaryDeleteButton.disabled=true;
-  status('diaryStatus','削除中...',true);
-
-  try{
-    const r=await jsonp('deleteDiary',{id:id});
-    if(!r?.ok)throw new Error(r?.error||'削除できませんでした。');
-    await reloadData();
-    closeDiary();
-    showToast('日誌を削除しました');
-  }catch(e){
-    status('diaryStatus',e.message||String(e),false);
-  }finally{
-    diaryDeleteButton.disabled=false;
-  }
-}
-
-function openPhoto(){hideStatus('photoStatus');photoModal.classList.add('show')}function closePhoto(){photoModal.classList.remove('show')}function photoCategoryChanged(){const c=photoCategory.value;photoGroupArea.style.display=c==='日誌'?'block':'none';photoPlantArea.style.display=c==='蜜源'?'block':'none'}
-async function goPhotoUpload(){const date=fmt(photoDate.value),category=photoCategory.value,group=category==='日誌'?photoGroup.value:'',plant=category==='蜜源'?photoPlant.value.trim():'',title=photoTitle.value.trim(),comment=photoComment.value.trim();if(!date)return status('photoStatus','日付を入力してください。',false);if(category==='蜜源'&&!plant)return status('photoStatus','蜜源名を入力してください。',false);status('photoStatus','写真登録画面を準備しています...',true);try{const r=await jsonp('photoUploadUrl',{date,category,group,plant,title:title||(category==='日誌'?group+' 点検写真':plant+' 写真'),comment});if(!r?.ok)throw new Error(r?.error||'写真登録画面を開けませんでした。');location.href=r.url}catch(e){status('photoStatus',e.message||String(e),false)}}
-function openNectar(){hideStatus('nectarStatus');nectarModal.classList.add('show')}function closeNectar(){nectarModal.classList.remove('show')}
-async function registerNectar(){const date=fmt(nectarDate.value),plant=nectarPlant.value.trim(),bloom=nectarBloom.value,visit=nectarVisit.value,memo=nectarMemo.value.trim();if(!date||!plant)return status('nectarStatus','日付と蜜源名を入力してください。',false);status('nectarStatus','登録中...',true);try{const r=await jsonp('registerNectar',{date,plant,bloom,visit,memo});if(!r?.ok)throw new Error(r?.error||'登録できませんでした。');status('nectarStatus','蜜源を登録しました。',true);nectarPlant.value='';nectarBloom.value='';nectarVisit.value='';nectarMemo.value='';const n=await jsonp('nectar');if(n?.ok)nectarData=n.data;setTimeout(()=>{closeNectar();changeMode('nectar')},600)}catch(e){status('nectarStatus',e.message||String(e),false)}}
-function fmt(v){return v?v.replace(/-/g,'/'):''}function status(id,m,ok){const e=document.getElementById(id);e.textContent=m;e.className='status show '+(ok?'ok':'ng')}function hideStatus(id){const e=document.getElementById(id);e.textContent='';e.className='status'}function esc(v){return String(v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;')}function showError(e){content.style.display='none';loading.style.display='block';loading.innerHTML='エラーが発生しました。<br>'+esc(e.message||String(e))+'<br><button class="retry" onclick="loadAll()">再読み込み</button>'}
-
-function showToast(message){
-  const toast=document.getElementById('toast');
-  toast.textContent=message;
-  toast.classList.add('show');
-  clearTimeout(showToast.timer);
-  showToast.timer=setTimeout(()=>toast.classList.remove('show'),1400);
-}
-
-let pullStartY=0;
-let pullReady=false;
-const pullIndicator=document.getElementById('pullIndicator');
-
-document.addEventListener('touchstart',function(e){
-  if(window.scrollY===0&&e.touches.length===1){
-    pullStartY=e.touches[0].clientY;
-    pullReady=false;
-  }
-},{passive:true});
-
-document.addEventListener('touchmove',function(e){
-  if(!pullStartY||window.scrollY!==0)return;
-  const distance=e.touches[0].clientY-pullStartY;
-  if(distance>35){
-    pullIndicator.classList.add('show');
-    pullIndicator.textContent=distance>85?'離して更新':'↓ 引っ張って更新';
-    pullReady=distance>85;
-  }
-},{passive:true});
-
-document.addEventListener('touchend',function(){
-  if(pullReady)reloadData();
-  pullIndicator.classList.remove('show');
-  pullIndicator.textContent='↓ 引っ張って更新';
-  pullStartY=0;
-  pullReady=false;
-},{passive:true});
-
+function closeModal(id){document.getElementById(id).classList.remove('show')}
+function toInput(v){return v?String(v).replace(/\//g,'-'):new Date().toISOString().slice(0,10)}
+function fmt(v){return v?v.replace(/-/g,'/'):''}
+function status(id,m,ok){const e=document.getElementById(id);e.textContent=m;e.className='status show '+(ok?'ok':'ng')}
+function hideStatus(id){const e=document.getElementById(id);e.textContent='';e.className='status'}
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1400)}
+function esc(v){return String(v??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;')}
 </script>
 </body>
 </html>

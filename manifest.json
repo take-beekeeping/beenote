@@ -1,15 +1,25 @@
 {
-  "name":"BeeNote",
-  "short_name":"BeeNote",
-  "description":"Takeda Beekeeping Manager",
-  "lang":"ja",
-  "start_url":"./",
-  "scope":"./",
-  "display":"standalone",
-  "background_color":"#f3f5f1",
-  "theme_color":"#315d38",
-  "icons":[
-    {"src":"./beenote-icon-180.png","sizes":"180x180","type":"image/png","purpose":"any"},
-    {"src":"./beenote-icon-512.png","sizes":"512x512","type":"image/png","purpose":"any maskable"}
+  "name": "BeeNote",
+  "short_name": "BeeNote",
+  "description": "Takeda Beekeeping Manager",
+  "lang": "ja",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f3f5f1",
+  "theme_color": "#315d38",
+  "icons": [
+    {
+      "src": "./beenote-icon-180.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./beenote-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
   ]
 }
