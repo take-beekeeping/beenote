@@ -97,8 +97,7 @@ async function reloadData(){
     showToast('更新しました');
   }catch(e){
     showToast('更新できませんでした');
-    alert('更新できませんでした。
-'+(e.message||String(e)));
+    alert('更新できませんでした。\n' + (e.message || String(e)));
   }finally{
     b.disabled=false;
     b.classList.remove('spinning');
