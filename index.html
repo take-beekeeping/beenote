@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+  <title>BeeNote</title>
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="BeeNote">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="theme-color" content="#f9c928">
+
+  <link rel="apple-touch-icon"
+        sizes="180x180"
+        href="https://take-beekeeping.github.io/beenote/beenote-icon-180.png?v=2">
+
+  <link rel="icon"
+        type="image/png"
+        href="https://take-beekeeping.github.io/beenote/beenote-icon-180.png?v=2">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f9c928;
+      font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans",
+                   "Yu Gothic", sans-serif;
+      color: #2c2108;
+    }
+
+    .launch {
+      text-align: center;
+      padding: 32px;
+    }
+
+    .launch img {
+      width: 160px;
+      height: 160px;
+      border-radius: 34px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
+    }
+
+    .launch h1 {
+      margin: 20px 0 8px;
+      font-size: 34px;
+    }
+
+    .launch p {
+      margin: 0;
+      font-size: 17px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="launch">
+    <img
+      src="https://take-beekeeping.github.io/beenote/beenote-icon-180.png"
+      alt="BeeNote">
+
+    <h1>BeeNote</h1>
+    <p>起動しています…</p>
+  </div>
+
+  <script>
+    setTimeout(function () {
+      window.location.replace(
+        "https://script.google.com/macros/s/AKfycbwbgz_RHYeBJRsKh1xzrdXqF1diYdnG5hZlySToLIM1igmoaBVHl1SnHD35-MG5duiZ5Q/exec"
+      );
+    }, 700);
+  </script>
+</body>
+</html>
