@@ -9,8 +9,8 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <title>BeeNote</title>
 <link rel="manifest" href="./manifest.json">
-<link rel="apple-touch-icon" sizes="180x180" href="./beenote-icon-180.png?v=9">
-<link rel="icon" type="image/png" href="./beenote-icon-512.png?v=9">
+<link rel="apple-touch-icon" sizes="180x180" href="./beenote-icon-180.png?v=10">
+<link rel="icon" type="image/png" href="./beenote-icon-512.png?v=10">
 <style>
 *{box-sizing:border-box}
 :root{--g:#315d38;--gs:#e7ebe5;--y:#f1c84a;--bg:#f3f5f1;--muted:#707770}
@@ -44,7 +44,7 @@ input,select,textarea{width:100%;border:1px solid #c8cec6;border-radius:9px;padd
 <body>
 <section id="login">
   <div class="login-box">
-    <img src="./beenote-icon-180.png?v=9" alt="BeeNote">
+    <img src="./beenote-icon-180.png?v=10" alt="BeeNote">
     <h1>BeeNote</h1>
     <p>8桁のPINを入力してください</p>
     <input id="pinInput" type="password" inputmode="numeric" maxlength="8" placeholder="••••••••">
@@ -56,7 +56,7 @@ input,select,textarea{width:100%;border:1px solid #c8cec6;border-radius:9px;padd
 <section id="app" class="hidden">
 <header>
   <div class="brand">
-    <img src="./beenote-icon-180.png?v=9" alt="BeeNote">
+    <img src="./beenote-icon-180.png?v=10" alt="BeeNote">
     <div><h1>BeeNote</h1><div class="sub">Takeda Beekeeping Manager</div></div>
     <button class="icon-btn" onclick="reloadData()" title="更新">↻</button>
     <button class="icon-btn" onclick="logout()" title="ログアウト">⇥</button>
@@ -126,7 +126,7 @@ input,select,textarea{width:100%;border:1px solid #c8cec6;border-radius:9px;padd
 
 <script>
 'use strict';
-const API='https://script.google.com/macros/s/AKfycbwbgz_RHYeBJRsKh1xzrdXqF1diYdnG5hZlySToLIM1igmoaBVHl1SnHD35-MG5duiZ5Q/exec';
+const API='https://script.google.com/macros/s/AKfycbwPjOX_wfVDndUDqkl-TPhkwOi99gwRZp3OrohrP5E-4VXqAeACfdMK2CajCImnJF_4WQ/exec';
 const TOKEN_KEY='beenote_v5_token';
 let token=localStorage.getItem(TOKEN_KEY)||'';
 let diaryData=null,nectarData=null,harvestData=null,currentMode='group',selectedKey='';
