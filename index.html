@@ -9,8 +9,8 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <title>BeeNote</title>
 <link rel="manifest" href="./manifest.json">
-<link rel="apple-touch-icon" sizes="180x180" href="./beenote-icon-180.png?v=8">
-<link rel="icon" type="image/png" href="./beenote-icon-512.png?v=8">
+<link rel="apple-touch-icon" sizes="180x180" href="./beenote-icon-180.png?v=9">
+<link rel="icon" type="image/png" href="./beenote-icon-512.png?v=9">
 <style>
 *{box-sizing:border-box}
 :root{--g:#315d38;--gs:#e7ebe5;--y:#f1c84a;--bg:#f3f5f1;--muted:#707770}
@@ -44,7 +44,7 @@ input,select,textarea{width:100%;border:1px solid #c8cec6;border-radius:9px;padd
 <body>
 <section id="login">
   <div class="login-box">
-    <img src="./beenote-icon-180.png?v=8" alt="BeeNote">
+    <img src="./beenote-icon-180.png?v=9" alt="BeeNote">
     <h1>BeeNote</h1>
     <p>8桁のPINを入力してください</p>
     <input id="pinInput" type="password" inputmode="numeric" maxlength="8" placeholder="••••••••">
@@ -56,7 +56,7 @@ input,select,textarea{width:100%;border:1px solid #c8cec6;border-radius:9px;padd
 <section id="app" class="hidden">
 <header>
   <div class="brand">
-    <img src="./beenote-icon-180.png?v=8" alt="BeeNote">
+    <img src="./beenote-icon-180.png?v=9" alt="BeeNote">
     <div><h1>BeeNote</h1><div class="sub">Takeda Beekeeping Manager</div></div>
     <button class="icon-btn" onclick="reloadData()" title="更新">↻</button>
     <button class="icon-btn" onclick="logout()" title="ログアウト">⇥</button>
@@ -133,11 +133,52 @@ let diaryData=null,nectarData=null,harvestData=null,currentMode='group',selected
 
 document.addEventListener('DOMContentLoaded',async()=>{setDates();if(token&&await checkAuth()){showApp();loadAll()}else showLogin();if('serviceWorker'in navigator)navigator.serviceWorker.register('./service-worker.js').catch(()=>{})});
 
-function jsonp(api,p={}){return new Promise((resolve,reject)=>{const cb='__bn'+Date.now()+Math.random().toString(36).slice(2),q=new URLSearchParams({...p,api,token,callback:cb,_:Date.now()}),s=document.createElement('script');const t=setTimeout(()=>{clean();reject(new Error('通信がタイムアウトしました。'))},20000);function clean(){clearTimeout(t);delete window[cb];s.remove()}window[cb]=r=>{clean();if(r&&r.authRequired){logout();reject(new Error(r.error))}else resolve(r)};s.onerror=()=>{clean();reject(new Error('BeeNoteサーバーへ接続できませんでした。'))};s.src=API+'?'+q;document.head.appendChild(s)})}
+function apiCall(api,p={}){
+  return new Promise((resolve,reject)=>{
+    const nonce='bn_'+Date.now()+'_'+Math.random().toString(36).slice(2);
+    const q=new URLSearchParams({...p,api,token,transport:'iframe',nonce,_:Date.now()});
+    const frame=document.createElement('iframe');
+    frame.style.display='none';
+    frame.setAttribute('aria-hidden','true');
+
+    const timer=setTimeout(()=>{
+      cleanup();
+      reject(new Error('BeeNoteサーバーへの接続がタイムアウトしました。'));
+    },25000);
+
+    function cleanup(){
+      clearTimeout(timer);
+      window.removeEventListener('message',onMessage);
+      frame.remove();
+    }
+
+    function onMessage(event){
+      const data=event.data;
+      if(!data||data.source!=='BeeNoteGAS'||data.nonce!==nonce)return;
+      cleanup();
+      const r=data.response;
+      if(r&&r.authRequired){
+        logout();
+        reject(new Error(r.error||'ログインの有効期限が切れています'));
+      }else{
+        resolve(r);
+      }
+    }
+
+    window.addEventListener('message',onMessage);
+    frame.onerror=()=>{
+      cleanup();
+      reject(new Error('BeeNoteサーバーへ接続できませんでした。'));
+    };
+    frame.src=API+'?'+q.toString();
+    document.body.appendChild(frame);
+  });
+}
+const jsonp=apiCall;
 async function checkAuth(){try{const r=await jsonp('health');return !!r?.authenticated}catch(e){return false}}
 function showLogin(){document.getElementById('login').classList.remove('hidden');document.getElementById('app').classList.add('hidden')}
 function showApp(){document.getElementById('login').classList.add('hidden');document.getElementById('app').classList.remove('hidden')}
-async function performLogin(){const pin=pinInput.value.trim();if(!/^\d{8}$/.test(pin))return status('loginStatus','8桁の数字を入力してください。',false);status('loginStatus','確認中...',true);try{const r=await jsonp('login',{pin});if(!r?.ok)throw new Error(r?.error||'ログインできませんでした。');token=r.token;localStorage.setItem(TOKEN_KEY,token);pinInput.value='';showApp();loadAll()}catch(e){status('loginStatus',e.message||String(e),false)}}
+async function performLogin(){const pin=pinInput.value.trim();if(!/^\d{8}$/.test(pin))return status('loginStatus','8桁の数字を入力してください。',false);status('loginStatus','確認中...',true);try{const r=await jsonp('login',{pin});if(!r?.ok)throw new Error(r?.error||'ログインできませんでした。');token=r.token;localStorage.setItem(TOKEN_KEY,token);pinInput.value='';showApp();loadAll()}catch(e){status('loginStatus',(e.message||String(e))+'\n通信環境を確認して、もう一度お試しください。',false)}}
 function logout(){localStorage.removeItem(TOKEN_KEY);token='';showLogin()}
 function setDates(){const n=new Date(),d=new Date(n.getTime()-n.getTimezoneOffset()*60000).toISOString().slice(0,10);diaryDate.value=d;nectarDate.value=d;harvestDate.value=d}
 async function loadAll(){loading.textContent='読み込み中...';loading.classList.remove('hidden');content.classList.add('hidden');try{const [d,n,h]=await Promise.all([jsonp('diary'),jsonp('nectar'),jsonp('harvest')]);if(!d?.ok)throw new Error(d?.error);if(!n?.ok)throw new Error(n?.error);if(!h?.ok)throw new Error(h?.error);diaryData=d.data;nectarData=n.data;harvestData=h.data;selectedKey=diaryData.groupNames[0]||'';loading.classList.add('hidden');content.classList.remove('hidden');render()}catch(e){loading.innerHTML='エラーが発生しました。<br>'+esc(e.message||String(e))}}
